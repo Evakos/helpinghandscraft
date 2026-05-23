@@ -5,11 +5,15 @@ const consumerKey = import.meta.env.VITE_WC_CONSUMER_KEY;
 const consumerSecret = import.meta.env.VITE_WC_CONSUMER_SECRET;
 
 // Axios instance for WooCommerce REST API
+// Using HTTP/1.1 to avoid HTTP/2 protocol issues with some servers
 const wcApi = axios.create({
   baseURL: `${wpUrl}/wp-json/wc/v3`,
   params: {
     consumer_key: consumerKey,
     consumer_secret: consumerSecret,
+  },
+  headers: {
+    'Cache-Control': 'no-cache',
   },
 });
 
