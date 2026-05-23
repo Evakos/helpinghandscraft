@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const wpUrl = import.meta.env.VITE_WP_URL || 'https://helpinghandscraft.co.uk';
+// In development, use the Vite proxy (no CORS issues)
+// In production, use the full URL
+const isDev = import.meta.env.DEV;
+const wpUrl = isDev ? '' : (import.meta.env.VITE_WP_URL || 'https://helpinghandscraft.co.uk');
 const consumerKey = import.meta.env.VITE_WC_CONSUMER_KEY;
 const consumerSecret = import.meta.env.VITE_WC_CONSUMER_SECRET;
 
 // Axios instance for WooCommerce REST API
-// Using HTTP/1.1 to avoid HTTP/2 protocol issues with some servers
 const wcApi = axios.create({
   baseURL: `${wpUrl}/wp-json/wc/v3`,
   params: {

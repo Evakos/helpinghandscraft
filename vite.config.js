@@ -8,4 +8,13 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
   },
+  server: {
+    proxy: {
+      '/wp-json': {
+        target: 'https://helpinghandscraft.co.uk',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
