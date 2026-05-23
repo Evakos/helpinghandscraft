@@ -1,0 +1,140 @@
+.shop-page {
+  min-height: 100vh;
+}
+
+.shop-header {
+  background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.shop-header h1 {
+  font-size: 2.5rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+}
+
+.shop-header p {
+  color: #636e72;
+  font-size: 1.1rem;
+}
+
+.shop-controls {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #e17055;
+}
+
+.search-btn {
+  padding: 0.8rem 1.5rem;
+  background: #2d3436;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-btn:hover {
+  background: #e17055;
+}
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cat-filter {
+  padding: 0.5rem 1rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 20px;
+  background: white;
+  color: #636e72;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.cat-filter:hover {
+  border-color: #e17055;
+  color: #e17055;
+}
+
+.cat-filter.active {
+  background: #e17055;
+  color: white;
+  border-color: #e17055;
+}
+
+.shop-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.no-products {
+  text-align: center;
+  padding: 3rem;
+  color: #636e72;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.page-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 8px;
+  background: white;
+  color: #2d3436;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.page-btn:hover {
+  border-color: #e17055;
+  color: #e17055;
+}
+
+.page-btn.active {
+  background: #2d3436;
+  color: white;
+  border-color: #2d3436;
+}
