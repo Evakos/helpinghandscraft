@@ -6,10 +6,10 @@
 
 /* ─── Header ─── */
 .shop-header {
-  background: #f5f2ed;
+  background: #dbd5c9;
   padding: 4rem 2rem 3rem;
   text-align: center;
-  border-bottom: 1px solid #e8e3db;
+  border-bottom: 1px solid #d0c9bb;
 }
 
 .shop-header .section-label {
@@ -18,7 +18,7 @@
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #b5ada0;
+  color: #7a7265;
   margin-bottom: 0.75rem;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .shop-header p {
-  color: #8a8275;
+  color: #7a7265;
   font-size: 0.95rem;
 }
 

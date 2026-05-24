@@ -6,10 +6,10 @@
 
 /* ─── Hero Section ─── */
 .hero {
-  background: #474343;
+  background: #dbd5c9;
   padding: 6rem 2rem 5rem;
   text-align: center;
-  color: #dbd5c9;
+  color: #474343;
   position: relative;
   overflow: hidden;
 }
@@ -19,8 +19,8 @@
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(219, 213, 201, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(219, 213, 201, 0.04) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(71, 67, 67, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(71, 67, 67, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -37,7 +37,7 @@
   font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #b5ada0;
+  color: #7a7265;
   margin-bottom: 1.5rem;
 }
 
@@ -45,7 +45,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 3.5rem;
   font-weight: 500;
-  color: #dbd5c9;
+  color: #474343;
   margin-bottom: 1rem;
   line-height: 1.15;
 }
@@ -53,7 +53,7 @@
 .hero p {
   font-size: 1.05rem;
   font-weight: 300;
-  color: #b5ada0;
+  color: #7a7265;
   margin-bottom: 2.5rem;
   line-height: 1.7;
 }
@@ -61,8 +61,8 @@
 .hero-cta {
   display: inline-block;
   background: transparent;
-  color: #dbd5c9;
-  border: 1px solid #dbd5c9;
+  color: #474343;
+  border: 1px solid #474343;
   padding: 0.9rem 2.5rem;
   font-size: 0.8rem;
   font-weight: 400;
@@ -73,8 +73,8 @@
 }
 
 .hero-cta:hover {
-  background: #dbd5c9;
-  color: #474343;
+  background: #474343;
+  color: #dbd5c9;
 }
 
 /* ─── Section Styles ─── */
@@ -205,7 +205,7 @@
 
 /* ─── About / Studio Section ─── */
 .studio-section {
-  background: #f5f2ed;
+  background: #474343;
   padding: 5rem 2rem;
 }
 
@@ -221,13 +221,22 @@
 .studio-text h2 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
+  color: #dbd5c9;
 }
 
 .studio-text p {
-  color: #7a7265;
+  color: #b5ada0;
   font-size: 0.95rem;
   line-height: 1.8;
   margin-bottom: 1rem;
+}
+
+.studio-text .section-label {
+  color: #8a8275;
+}
+
+.studio-text .section-divider {
+  background: #dbd5c9;
 }
 
 .studio-image {

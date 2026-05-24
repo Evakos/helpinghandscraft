@@ -1,6 +1,6 @@
 .navbar {
-  background: #474343;
-  color: #dbd5c9;
+  background: #dbd5c9;
+  color: #474343;
   padding: 0;
   position: sticky;
   top: 0;
@@ -8,15 +8,15 @@
 }
 
 .navbar-top {
-  background: #3a3737;
+  background: #d0c9bb;
   text-align: center;
   padding: 0.4rem 1rem;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #b5ada0;
-  border-bottom: 1px solid rgba(219, 213, 201, 0.08);
+  color: #7a7265;
+  border-bottom: 1px solid rgba(71, 67, 67, 0.08);
 }
 
 .navbar-container {
@@ -34,19 +34,19 @@
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
-  color: #dbd5c9;
+  color: #474343;
 }
 
 .brand-icon {
   width: 36px;
   height: 36px;
-  background: #dbd5c9;
+  background: #474343;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: #474343;
+  color: #dbd5c9;
 }
 
 .brand-text {
@@ -54,7 +54,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #dbd5c9;
+  color: #474343;
 }
 
 .navbar-links {
@@ -64,7 +64,7 @@
 }
 
 .nav-link {
-  color: #b5ada0;
+  color: #7a7265;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 400;
@@ -81,12 +81,12 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: #dbd5c9;
+  background: #474343;
   transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #dbd5c9;
+  color: #474343;
 }
 
 .nav-link:hover::after {
@@ -108,8 +108,8 @@
   position: absolute;
   top: -8px;
   right: -10px;
-  background: #dbd5c9;
-  color: #474343;
+  background: #474343;
+  color: #dbd5c9;
   border-radius: 50%;
   width: 18px;
   height: 18px;
