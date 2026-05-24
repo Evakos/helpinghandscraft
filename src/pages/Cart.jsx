@@ -11,7 +11,7 @@ const Cart = () => {
         <div className="cart-empty">
           <h1>Your Cart is Empty</h1>
           <p>Looks like you haven't added anything yet.</p>
-          <Link to="/shop" className="continue-shopping">Browse Products →</Link>
+          <Link to="/shop" className="view-all-btn">Browse Products</Link>
         </div>
       </div>
     );
@@ -44,7 +44,7 @@ const Cart = () => {
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   className="qty-btn"
                 >
-                  -
+                  −
                 </button>
                 <span className="qty-value">{item.quantity}</span>
                 <button
@@ -69,8 +69,7 @@ const Cart = () => {
 
         <div className="cart-summary">
           <div className="cart-total">
-            <span>Total:</span>
-            <span className="total-amount">£{cart.total.toFixed(2)}</span>
+            Total: <span className="total-amount">£{cart.total.toFixed(2)}</span>
           </div>
           <Link to="/shop" className="continue-shopping">Continue Shopping</Link>
         </div>

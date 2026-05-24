@@ -34,8 +34,9 @@ const Home = () => {
       <div className="home">
         <section className="hero">
           <div className="hero-content">
+            <p className="hero-subtitle">Curated Craft Supplies</p>
             <h1>Helping Hands Craft</h1>
-            <p>Handcrafted with love, unique creations for every occasion</p>
+            <p>Handcrafted with love — unique creations and quality supplies for every maker.</p>
             <Link to="/shop" className="hero-cta">Browse Our Shop</Link>
           </div>
         </section>
@@ -49,17 +50,25 @@ const Home = () => {
 
   return (
     <div className="home">
+      {/* ─── Hero ─── */}
       <section className="hero">
         <div className="hero-content">
+          <p className="hero-subtitle">Curated Craft Supplies</p>
           <h1>Helping Hands Craft</h1>
-          <p>Handcrafted with love, unique creations for every occasion</p>
+          <p>Handcrafted with love — unique creations and quality supplies for every maker, every project, every occasion.</p>
           <Link to="/shop" className="hero-cta">Browse Our Shop</Link>
         </div>
       </section>
 
+      {/* ─── Categories ─── */}
       {categories.length > 0 && (
-        <section className="categories-section">
-          <h2>Shop by Category</h2>
+        <section className="section">
+          <div className="section-header">
+            <p className="section-label">Categories</p>
+            <div className="section-divider" />
+            <h2>Shop by Category</h2>
+            <p>Find exactly what you need from our curated collections</p>
+          </div>
           <div className="categories-grid">
             {categories.map(cat => (
               <Link
@@ -74,8 +83,14 @@ const Home = () => {
         </section>
       )}
 
-      <section className="featured-section">
-        <h2>Featured Products</h2>
+      {/* ─── Featured Products ─── */}
+      <section className="section">
+        <div className="section-header">
+          <p className="section-label">Featured</p>
+          <div className="section-divider" />
+          <h2>Featured Products</h2>
+          <p>Our handpicked selection of the finest craft supplies</p>
+        </div>
         {loading ? (
           <div className="loading">Loading products...</div>
         ) : (
@@ -86,7 +101,30 @@ const Home = () => {
           </div>
         )}
         <div className="view-all">
-          <Link to="/shop" className="view-all-btn">View All Products →</Link>
+          <Link to="/shop" className="view-all-btn">View All Products</Link>
+        </div>
+      </section>
+
+      {/* ─── Studio Section ─── */}
+      <section className="studio-section">
+        <div className="studio-content">
+          <div className="studio-text">
+            <p className="section-label">Our Studio</p>
+            <div className="section-divider" style={{ margin: '0 0 1rem' }} />
+            <h2>Made with Care</h2>
+            <p>
+              Every product in our collection is thoughtfully curated to inspire your next creation. 
+              From essential tools to unique embellishments, we believe in the beauty of handmade.
+            </p>
+            <p>
+              Whether you're a seasoned maker or just beginning your creative journey, 
+              Helping Hands Craft is here to support you with quality supplies and a 
+              community that celebrates the art of making.
+            </p>
+          </div>
+          <div className="studio-image">
+            <span>✦ Crafting since 2018 ✦</span>
+          </div>
         </div>
       </section>
     </div>

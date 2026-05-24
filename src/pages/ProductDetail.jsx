@@ -12,6 +12,7 @@ const ProductDetail = () => {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -51,8 +52,8 @@ const ProductDetail = () => {
     );
   }
 
-  const image = product.images?.[0]?.src || 'https://via.placeholder.com/600';
-  const galleryImages = product.images?.slice(1) || [];
+  const images = product.images || [];
+  const currentImage = images[selectedImage]?.src || 'https://via.placeholder.com/600';
   const price = parseFloat(product.price).toFixed(2);
   const regularPrice = product.regular_price ? parseFloat(product.regular_price).toFixed(2) : null;
   const onSale = product.on_sale;
@@ -65,16 +66,17 @@ const ProductDetail = () => {
         <div className="product-detail-content">
           <div className="product-gallery">
             <div className="main-image">
-              <img src={image} alt={product.name} />
+              <img src={currentImage} alt={product.name} />
             </div>
-            {galleryImages.length > 0 && (
+            {images.length > 1 && (
               <div className="gallery-thumbnails">
-                {product.images.map((img, index) => (
+                {images.map((img, index) => (
                   <img
                     key={index}
                     src={img.src}
                     alt={`${product.name} ${index + 1}`}
-                    className="thumbnail"
+                    className={`thumbnail ${index === selectedImage ? 'active' : ''}`}
+                    onClick={() => setSelectedImage(index)}
                   />
                 ))}
               </div>
@@ -111,7 +113,7 @@ const ProductDetail = () => {
 
             {product.stock_status && (
               <p className={`stock-status ${product.stock_status}`}>
-                {product.stock_status === 'instock' ? '✅ In Stock' : '❌ Out of Stock'}
+                {product.stock_status === 'instock' ? '✓ In Stock' : '✕ Out of Stock'}
               </p>
             )}
 
@@ -122,7 +124,7 @@ const ProductDetail = () => {
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="qty-btn"
                   >
-                    -
+                    −
                   </button>
                   <span className="qty-value">{quantity}</span>
                   <button
@@ -136,7 +138,7 @@ const ProductDetail = () => {
                   className={`add-to-cart-btn ${addedToCart ? 'added' : ''}`}
                   onClick={handleAddToCart}
                 >
-                  {addedToCart ? '✓ Added!' : 'Add to Cart'}
+                  {addedToCart ? '✓ Added' : 'Add to Cart'}
                 </button>
               </div>
             )}

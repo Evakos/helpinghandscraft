@@ -1,64 +1,96 @@
+/* ─── Shop Page - Studio Boutique ─── */
+
 .shop-page {
   min-height: 100vh;
 }
 
+/* ─── Header ─── */
 .shop-header {
-  background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
-  padding: 3rem 1rem;
+  background: #f5f2ed;
+  padding: 4rem 2rem 3rem;
   text-align: center;
+  border-bottom: 1px solid #e8e3db;
+}
+
+.shop-header .section-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #b5ada0;
+  margin-bottom: 0.75rem;
 }
 
 .shop-header h1 {
-  font-size: 2.5rem;
-  color: #2d3436;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: #474343;
   margin-bottom: 0.5rem;
 }
 
 .shop-header p {
-  color: #636e72;
-  font-size: 1.1rem;
+  color: #8a8275;
+  font-size: 0.95rem;
 }
 
+/* ─── Controls ─── */
 .shop-controls {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
 }
 
 .search-form {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  max-width: 500px;
+  gap: 0;
+  flex: 1;
+  max-width: 400px;
 }
 
 .search-input {
   flex: 1;
-  padding: 0.8rem 1rem;
-  border: 2px solid #dfe6e9;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #e8e3db;
+  border-right: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #474343;
   outline: none;
-  transition: border-color 0.2s;
+  background: #ffffff;
+  transition: border-color 0.3s ease;
 }
 
 .search-input:focus {
-  border-color: #e17055;
+  border-color: #474343;
+}
+
+.search-input::placeholder {
+  color: #b5ada0;
+  font-style: italic;
 }
 
 .search-btn {
-  padding: 0.8rem 1.5rem;
-  background: #2d3436;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  background: #474343;
+  color: #dbd5c9;
+  border: 1px solid #474343;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 .search-btn:hover {
-  background: #e17055;
+  background: #3a3737;
 }
 
 .category-filters {
@@ -68,73 +100,100 @@
 }
 
 .cat-filter {
-  padding: 0.5rem 1rem;
-  border: 2px solid #dfe6e9;
-  border-radius: 20px;
-  background: white;
-  color: #636e72;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #e8e3db;
+  background: transparent;
+  color: #8a8275;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
 }
 
 .cat-filter:hover {
-  border-color: #e17055;
-  color: #e17055;
+  border-color: #474343;
+  color: #474343;
 }
 
 .cat-filter.active {
-  background: #e17055;
-  color: white;
-  border-color: #e17055;
+  background: #474343;
+  color: #dbd5c9;
+  border-color: #474343;
 }
 
+/* ─── Content ─── */
 .shop-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem 3rem;
+  padding: 0 2rem 4rem;
 }
 
 .error-message {
-  background: #f8d7da;
-  color: #721c24;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  background: #f5f2ed;
+  border: 1px solid #dbd5c9;
+  padding: 1rem 1.5rem;
+  color: #7a7265;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
 }
 
 .no-products {
   text-align: center;
-  padding: 3rem;
-  color: #636e72;
+  padding: 4rem 1rem;
+  color: #8a8275;
+  font-style: italic;
 }
 
+/* ─── Pagination ─── */
 .pagination {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .page-btn {
   padding: 0.5rem 1rem;
-  border: 2px solid #dfe6e9;
-  border-radius: 8px;
-  background: white;
-  color: #2d3436;
+  border: 1px solid #e8e3db;
+  background: transparent;
+  color: #8a8275;
   cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  min-width: 40px;
 }
 
 .page-btn:hover {
-  border-color: #e17055;
-  color: #e17055;
+  border-color: #474343;
+  color: #474343;
 }
 
 .page-btn.active {
-  background: #2d3436;
-  color: white;
-  border-color: #2d3436;
+  background: #474343;
+  color: #dbd5c9;
+  border-color: #474343;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .shop-header {
+    padding: 3rem 1rem 2rem;
+  }
+  .shop-header h1 {
+    font-size: 2.2rem;
+  }
+  .shop-controls {
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  .search-form {
+    max-width: 100%;
+    width: 100%;
+  }
+  .shop-content {
+    padding: 0 1rem 3rem;
+  }
 }

@@ -30,9 +30,6 @@ const Shop = () => {
 
         const data = await getProducts(params);
         setProducts(data);
-        
-        // Try to get total pages from headers (the library may not expose this)
-        // Fallback: assume more products exist
         setTotalPages(data.length < 12 ? currentPage : currentPage + 1);
       } catch (err) {
         setError('Failed to load products. Check your API connection.');
@@ -81,8 +78,9 @@ const Shop = () => {
   return (
     <div className="shop-page">
       <div className="shop-header">
+        <p className="section-label">Browse</p>
         <h1>Our Shop</h1>
-        <p>Handcrafted items made with care</p>
+        <p>Handcrafted items and quality supplies, curated with care</p>
       </div>
 
       <div className="shop-controls">
@@ -124,7 +122,6 @@ const Shop = () => {
         ) : products.length === 0 ? (
           <div className="no-products">
             <p>No products found.</p>
-            {!error && <p>Add products to your WooCommerce store to see them here.</p>}
           </div>
         ) : (
           <div className="products-grid">

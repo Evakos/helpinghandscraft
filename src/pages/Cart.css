@@ -1,20 +1,25 @@
+/* ─── Cart Page - Studio Boutique ─── */
+
 .cart-page {
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem;
 }
 
 .cart-empty {
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 5rem 1rem;
 }
 
 .cart-empty h1 {
-  color: #2d3436;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.5rem;
+  color: #474343;
   margin-bottom: 1rem;
 }
 
 .cart-empty p {
-  color: #636e72;
+  color: #8a8275;
+  font-size: 0.95rem;
   margin-bottom: 2rem;
 }
 
@@ -28,27 +33,34 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e8e3db;
 }
 
 .cart-header h1 {
-  color: #2d3436;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2rem;
+  font-weight: 500;
+  color: #474343;
+  margin: 0;
 }
 
 .clear-cart-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   background: transparent;
-  color: #d63031;
-  border: 2px solid #d63031;
-  border-radius: 8px;
+  color: #b5ada0;
+  border: 1px solid #e8e3db;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
 }
 
 .clear-cart-btn:hover {
-  background: #d63031;
-  color: white;
+  border-color: #474343;
+  color: #474343;
 }
 
 .cart-items {
@@ -60,19 +72,23 @@
 .cart-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e8e3db;
+  transition: border-color 0.3s ease;
+}
+
+.cart-item:hover {
+  border-color: #dbd5c9;
 }
 
 .cart-item-image {
   width: 80px;
   height: 80px;
-  border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
+  background: #f5f2ed;
 }
 
 .cart-item-image img {
@@ -87,28 +103,30 @@
 }
 
 .cart-item-name {
-  color: #2d3436;
+  color: #474343;
   text-decoration: none;
-  font-weight: 600;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
   display: block;
   margin-bottom: 0.3rem;
+  transition: color 0.3s ease;
 }
 
 .cart-item-name:hover {
-  color: #e17055;
+  color: #7a7265;
 }
 
 .cart-item-price {
-  color: #636e72;
-  font-size: 0.9rem;
+  color: #8a8275;
+  font-size: 0.85rem;
   margin: 0;
 }
 
 .cart-item-quantity {
   display: flex;
   align-items: center;
-  border: 2px solid #dfe6e9;
-  border-radius: 8px;
+  border: 1px solid #e8e3db;
 }
 
 .cart-item-quantity .qty-btn {
@@ -116,73 +134,94 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  font-weight: 600;
-  color: #2d3436;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #474343;
+  transition: background 0.2s ease;
 }
 
 .cart-item-quantity .qty-btn:hover {
-  background: #f8f9fa;
+  background: #f5f2ed;
 }
 
 .cart-item-quantity .qty-value {
   padding: 0.4rem 0.7rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 0.9rem;
   min-width: 30px;
   text-align: center;
+  color: #474343;
 }
 
 .cart-item-total {
-  font-weight: 700;
-  color: #e17055;
-  min-width: 80px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #474343;
+  min-width: 70px;
   text-align: right;
+  font-size: 1rem;
 }
 
 .remove-btn {
   background: none;
   border: none;
-  color: #b2bec3;
+  color: #b5ada0;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 0.5rem;
-  transition: color 0.2s;
+  transition: color 0.3s ease;
 }
 
 .remove-btn:hover {
-  color: #d63031;
+  color: #474343;
 }
 
 .cart-summary {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: #f5f2ed;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .cart-total {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2d3436;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #474343;
 }
 
 .total-amount {
-  color: #e17055;
-  font-size: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #474343;
   margin-left: 0.5rem;
 }
 
 .continue-shopping {
   display: inline-block;
-  color: #e17055;
+  color: #7a7265;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
 }
 
 .continue-shopping:hover {
-  color: #2d3436;
+  color: #474343;
+}
+
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 2rem 1rem;
+  }
+  .cart-item {
+    flex-wrap: wrap;
+  }
+  .cart-item-total {
+    min-width: auto;
+  }
 }
