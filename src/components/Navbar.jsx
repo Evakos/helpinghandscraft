@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { WC_DOMAIN } from '../api/woocommerce';
 import logo from '../assets/logo.svg';
@@ -9,6 +10,21 @@ const Navbar = () => {
   const { count } = useCart();
   const location = useLocation();
   const [menuItems, setMenuItems] = useState([]);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Lock page scroll while the mobile menu is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -41,11 +57,6 @@ const Navbar = () => {
 
   const items = menuItems.length > 0 ? menuItems : defaultItems;
 
-  // Split menu items: left side and right side
-  const midPoint = Math.ceil(items.length / 2);
-  const leftItems = items.slice(0, midPoint);
-  const rightItems = items.slice(midPoint);
-
   const getPath = (item) => {
     try {
       const url = new URL(item.url);
@@ -61,44 +72,46 @@ const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
+  const renderLink = (item, i) => (
+    <Link key={i} to={getPath(item)} className={`nav-link ${isActive(item) ? 'nav-link--active' : ''}`}>
+      {item.title}
+    </Link>
+  );
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar-top">
         Handcrafted with love — Free UK delivery on orders over £30
       </div>
       <div className="navbar-container">
-        <div className="navbar-links navbar-links--left">
-          {leftItems.map((item, i) => (
-            <Link
-              key={i}
-              to={getPath(item)}
-              className={`nav-link ${isActive(item) ? 'nav-link--active' : ''}`}
-            >
-              {item.title}
-            </Link>
-          ))}
-        </div>
+        <button
+          type="button"
+          className="navbar-toggle"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+        </button>
+
+        <div className="navbar-links navbar-links--left">{items.map(renderLink)}</div>
 
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Helping Hands Craft" className="navbar-logo" />
         </Link>
 
         <div className="navbar-links navbar-links--right">
-          {rightItems.map((item, i) => (
-            <Link
-              key={i}
-              to={getPath(item)}
-              className={`nav-link ${isActive(item) ? 'nav-link--active' : ''}`}
-            >
-              {item.title}
-            </Link>
-          ))}
-          <Link to="/cart" className="nav-link cart-link">
-            <span className="cart-link-icon">🛒</span>
-            Cart
+          <Link to="/cart" className="cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
+            <ShoppingBag size={21} strokeWidth={1.5} />
+            <span className="cart-link-label">Bag</span>
             {count > 0 && <span className="cart-badge">{count}</span>}
           </Link>
         </div>
+      </div>
+
+      <div className={`navbar-drawer ${open ? 'navbar-drawer--open' : ''}`} aria-hidden={!open} onClick={() => setOpen(false)}>
+        {items.map(renderLink)}
+        <Link to="/cart" className="nav-link">Bag{count > 0 ? ` (${count})` : ''}</Link>
       </div>
     </nav>
   );
