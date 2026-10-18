@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { subscribeToNewsletter } from '../api/mailerlite';
 import './Newsletter.css';
 
 const Newsletter = () => {
@@ -17,14 +16,20 @@ const Newsletter = () => {
     setMessage('');
     
     try {
-      await subscribeToNewsletter(email, name);
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || 'Something went wrong');
       setStatus('success');
       setMessage('Thank you for subscribing! Check your inbox for a confirmation email.');
       setEmail('');
       setName('');
     } catch (error) {
       setStatus('error');
-      const errorMsg = error.response?.data?.message || error.message || 'Something went wrong. Please try again.';
+      const errorMsg = error.message || 'Something went wrong. Please try again.';
       setMessage(errorMsg);
     }
   };

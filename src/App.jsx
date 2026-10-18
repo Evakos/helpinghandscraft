@@ -26,7 +26,23 @@ function SiteLayout() {
   );
 }
 
+// The public site stays on the Coming Soon page. Visiting any page with ?preview=hhc once switches the full shop on for this browser
+// (and ?preview=off switches it off again). This hides the shop, it is not a security measure.
+const PREVIEW_KEY = 'hhc-preview';
+function previewEnabled() {
+  try {
+    const q = new URLSearchParams(window.location.search).get('preview');
+    if (q === 'hhc') localStorage.setItem(PREVIEW_KEY, '1');
+    if (q === 'off') localStorage.removeItem(PREVIEW_KEY);
+    return localStorage.getItem(PREVIEW_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 function App() {
+  const preview = previewEnabled();
+  if (!preview) return <ComingSoon />;
   return (
     <Router>
       <CartProvider>
