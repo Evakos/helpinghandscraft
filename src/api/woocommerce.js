@@ -7,9 +7,9 @@ export const WC_DOMAIN =
   import.meta.env.VITE_WC_DOMAIN || 'https://api.helpinghandscraft.co.uk';
 export const WC_STORE = `${WC_DOMAIN}/wp-json/wc/store/v1`;
 
+// No custom request headers: any extra header (Cache-Control included) makes the browser send a CORS preflight that the API does not allow.
 const storeApi = axios.create({
   baseURL: WC_STORE,
-  headers: { 'Cache-Control': 'no-cache' },
 });
 
 // The Store API returns prices as strings in minor units (e.g. "1200" is
