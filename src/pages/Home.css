@@ -11,7 +11,89 @@
   text-align: center;
   color: #474343;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* Paper rip effect at bottom of hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: #faf8f5;
+  clip-path: polygon(
+    0% 100%,
+    1.5% 70%,
+    3% 100%,
+    4.5% 75%,
+    6% 100%,
+    7.5% 65%,
+    9% 100%,
+    10.5% 80%,
+    12% 100%,
+    13.5% 70%,
+    15% 100%,
+    16.5% 75%,
+    18% 100%,
+    19.5% 65%,
+    21% 100%,
+    22.5% 80%,
+    24% 100%,
+    25.5% 70%,
+    27% 100%,
+    28.5% 75%,
+    30% 100%,
+    31.5% 65%,
+    33% 100%,
+    34.5% 80%,
+    36% 100%,
+    37.5% 70%,
+    39% 100%,
+    40.5% 75%,
+    42% 100%,
+    43.5% 65%,
+    45% 100%,
+    46.5% 80%,
+    48% 100%,
+    49.5% 70%,
+    51% 100%,
+    52.5% 75%,
+    54% 100%,
+    55.5% 65%,
+    57% 100%,
+    58.5% 80%,
+    60% 100%,
+    61.5% 70%,
+    63% 100%,
+    64.5% 75%,
+    66% 100%,
+    67.5% 65%,
+    69% 100%,
+    70.5% 80%,
+    72% 100%,
+    73.5% 70%,
+    75% 100%,
+    76.5% 75%,
+    78% 100%,
+    79.5% 65%,
+    81% 100%,
+    82.5% 80%,
+    84% 100%,
+    85.5% 70%,
+    87% 100%,
+    88.5% 75%,
+    90% 100%,
+    91.5% 65%,
+    93% 100%,
+    94.5% 80%,
+    96% 100%,
+    97.5% 70%,
+    99% 100%,
+    100% 75%
+  );
+  pointer-events: none;
 }
 
 .hero::before {
@@ -33,9 +115,9 @@
 
 .hero-subtitle {
   font-family: 'Lato', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #7a7265;
   margin-bottom: 1.5rem;
@@ -78,6 +160,10 @@
 }
 
 /* ─── Section Styles ─── */
+.section-wrapper {
+  background: #faf8f5;
+}
+
 .section {
   max-width: 1200px;
   margin: 0 auto;
@@ -136,11 +222,28 @@
   text-align: center;
   text-decoration: none;
   color: #474343;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.category-card-icon {
+  font-size: 1rem;
+  line-height: 1;
+  display: block;
+  color: #b5ada0;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.3em;
+}
+
+.category-name {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.1rem;
   font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
+  color: #474343;
 }
 
 .category-card::after {

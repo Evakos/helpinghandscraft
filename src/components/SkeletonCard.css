@@ -1,0 +1,67 @@
+.skeleton-card {
+  background: #ffffff;
+  border: 1px solid #e8e3db;
+  overflow: hidden;
+}
+
+.skeleton-card--product {
+  padding: 0;
+}
+
+.skeleton-card--category {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(90deg, #f0ece6 25%, #e8e3db 50%, #f0ece6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0ece6 25%, #e8e3db 50%, #f0ece6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-text {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f0ece6 25%, #e8e3db 50%, #f0ece6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-card--product .skeleton-text {
+  margin: 0.75rem 1rem;
+}
+
+.skeleton-text--long {
+  width: 85%;
+}
+
+.skeleton-text--medium {
+  width: 60%;
+}
+
+.skeleton-text--short {
+  width: 40%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

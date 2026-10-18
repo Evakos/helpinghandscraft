@@ -1,130 +1,130 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { WC_DOMAIN, WC_STORE, formatPrice } from '../api/woocommerce';
 
 const CartContext = createContext();
 
-const CART_STORAGE_KEY = 'hhc_cart';
-
-const loadCartFromStorage = () => {
-  try {
-    const saved = localStorage.getItem(CART_STORAGE_KEY);
-    return saved ? JSON.parse(saved) : { items: [], total: 0 };
-  } catch {
-    return { items: [], total: 0 };
-  }
-};
-
-const cartReducer = (state, action) => {
-  let newState;
-  
-  switch (action.type) {
-    case 'ADD_ITEM': {
-      const existingIndex = state.items.findIndex(
-        item => item.id === action.payload.id
-      );
-      
-      if (existingIndex >= 0) {
-        const updatedItems = [...state.items];
-        updatedItems[existingIndex] = {
-          ...updatedItems[existingIndex],
-          quantity: updatedItems[existingIndex].quantity + (action.payload.quantity || 1),
-        };
-        newState = { ...state, items: updatedItems };
-      } else {
-        newState = {
-          ...state,
-          items: [...state.items, { ...action.payload, quantity: action.payload.quantity || 1 }],
-        };
-      }
-      break;
-    }
-    
-    case 'REMOVE_ITEM': {
-      newState = {
-        ...state,
-        items: state.items.filter(item => item.id !== action.payload),
-      };
-      break;
-    }
-    
-    case 'UPDATE_QUANTITY': {
-      const updatedItems = state.items.map(item =>
-        item.id === action.payload.id
-          ? { ...item, quantity: Math.max(1, action.payload.quantity) }
-          : item
-      );
-      newState = { ...state, items: updatedItems };
-      break;
-    }
-    
-    case 'CLEAR_CART': {
-      newState = { items: [], total: 0 };
-      break;
-    }
-    
-    default:
-      return state;
-  }
-  
-  // Calculate total
-  newState.total = newState.items.reduce(
-    (sum, item) => sum + parseFloat(item.price) * item.quantity,
-    0
-  );
-  
-  return newState;
-};
-
+// The cart lives in WooCommerce, not in localStorage. Add to cart loads a
+// hidden iframe on WC_DOMAIN to set the WooCommerce session cookies, then the
+// Store API (/wp-json/wc/store/v1/cart) is read with credentials so the cart
+// stays in sync. Checkout is the WooCommerce checkout page. This mirrors the
+// Orlik and Alor headless setup.
 export const CartProvider = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, null, loadCartFromStorage);
+  const [items, setItems] = useState([]);
+  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState('£0.00');
+  const [currency, setCurrency] = useState({ symbol: '£', minorUnit: 2 });
+  const [loading, setLoading] = useState(false);
+  const addIframe = useRef(null);
+  const [addUrl, setAddUrl] = useState(null);
+
+  const fetchCart = useCallback(async () => {
+    try {
+      const res = await fetch(`${WC_STORE}/cart`, { credentials: 'include' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const totals = data.totals || {};
+      const symbol = totals.currency_symbol || '£';
+      const minorUnit = totals.currency_minor_unit ?? 2;
+      setCurrency({ symbol, minorUnit });
+      setItems(data.items || []);
+      setCount(data.items_count || 0);
+      setTotal(formatPrice(totals.total_price, minorUnit, symbol));
+    } catch {
+      // The cart fetch can fail silently; items may still have been added.
+    }
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-  }, [cart]);
+    // fetchCart is async: its setState calls happen after `await`, so this is
+    // not a synchronous setState in the effect (the rule flags a false positive).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchCart();
+  }, [fetchCart]);
 
-  const addToCart = (product, quantity = 1) => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.images?.[0]?.src || '',
-        slug: product.slug,
-        quantity,
-      },
-    });
+  // When an add-to-cart iframe URL is set, load it, then refresh the cart.
+  useEffect(() => {
+    if (!addUrl) return;
+    const iframe = addIframe.current;
+    if (!iframe) return;
+    const onLoad = () => {
+      fetchCart();
+      setAddUrl(null);
+    };
+    iframe.addEventListener('load', onLoad);
+    return () => iframe.removeEventListener('load', onLoad);
+  }, [addUrl, fetchCart]);
+
+  const addToCart = useCallback((productId, quantity = 1) => {
+    setLoading(true);
+    const qty = Math.max(1, Math.min(quantity, 9999));
+    // The add-to-cart URL sets the WooCommerce session cookies on WC_DOMAIN.
+    setAddUrl(`${WC_DOMAIN}/?add-to-cart=${productId}&quantity=${qty}`);
+    setLoading(false);
+  }, []);
+
+  const removeFromCart = useCallback(async (itemKey) => {
+    try {
+      await fetch(`${WC_STORE}/cart/remove-item`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: itemKey }),
+      });
+      await fetchCart();
+    } catch {
+      // Silently fail; the live cart stays authoritative.
+    }
+  }, [fetchCart]);
+
+  const updateQuantity = useCallback(async (itemKey, quantity) => {
+    const qty = Math.max(1, quantity);
+    try {
+      await fetch(`${WC_STORE}/cart/update-item`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: itemKey, quantity: qty }),
+      });
+      await fetchCart();
+    } catch {
+      // Silently fail.
+    }
+  }, [fetchCart]);
+
+  const clearCart = useCallback(() => {
+    setItems([]);
+    setCount(0);
+    setTotal('£0.00');
+  }, []);
+
+  const value = {
+    items,
+    count,
+    total,
+    currency,
+    loading,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    refreshCart: fetchCart,
+    checkoutUrl: `${WC_DOMAIN}/checkout/`,
   };
-
-  const removeFromCart = (productId) => {
-    dispatch({ type: 'REMOVE_ITEM', payload: productId });
-  };
-
-  const updateQuantity = (productId, quantity) => {
-    dispatch({ type: 'UPDATE_QUANTITY', payload: { id: productId, quantity } });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: 'CLEAR_CART' });
-  };
-
-  const cartCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        cartCount,
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
+      <iframe
+        ref={addIframe}
+        src={addUrl || 'about:blank'}
+        style={{ display: 'none' }}
+        title="Cart"
+      />
     </CartContext.Provider>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

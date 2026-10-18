@@ -1,48 +1,91 @@
 import axios from 'axios';
 
-// In development, use the Vite proxy (no CORS issues)
-// In production, use the full URL
-const isDev = import.meta.env.DEV;
-const wpUrl = isDev ? '' : (import.meta.env.VITE_WP_URL || 'https://helpinghandscraft.co.uk');
-const consumerKey = import.meta.env.VITE_WC_CONSUMER_KEY;
-const consumerSecret = import.meta.env.VITE_WC_CONSUMER_SECRET;
+// Public WooCommerce Store API (wc/store/v1). No consumer key or secret is
+// required, and none ships to the browser — the same headless pattern as the
+// Orlik (orlik-api.apps.evakos.io) and Alor (api.alortanapi.com) sites.
+export const WC_DOMAIN =
+  import.meta.env.VITE_WC_DOMAIN || 'https://api.helpinghandscraft.co.uk';
+export const WC_STORE = `${WC_DOMAIN}/wp-json/wc/store/v1`;
 
-// Axios instance for WooCommerce REST API
-const wcApi = axios.create({
-  baseURL: `${wpUrl}/wp-json/wc/v3`,
-  params: {
-    consumer_key: consumerKey,
-    consumer_secret: consumerSecret,
-  },
-  headers: {
-    'Cache-Control': 'no-cache',
-  },
+const storeApi = axios.create({
+  baseURL: WC_STORE,
+  headers: { 'Cache-Control': 'no-cache' },
 });
 
-// Axios instance for WordPress REST API (with Basic Auth for protected sites)
-const wpApi = axios.create({
-  baseURL: `${wpUrl}/wp-json`,
-  auth: {
-    username: import.meta.env.VITE_WP_BASIC_AUTH_USER || '',
-    password: import.meta.env.VITE_WP_BASIC_AUTH_PASS || '',
-  },
-});
+// The Store API returns prices as strings in minor units (e.g. "1200" is
+// £12.00 when currency_minor_unit is 2). Format a minor unit value as money.
+export const formatPrice = (minor, minorUnit = 2, symbol = '£') => {
+  const n = parseFloat(minor);
+  if (Number.isNaN(n)) return `${symbol}0.00`;
+  return `${symbol}${(n / 10 ** minorUnit).toFixed(2)}`;
+};
 
-// Products
+// Convert a minor unit price string to a major unit string ("1200" -> "12").
+function minorToMajor(value, minorUnit) {
+  if (value === null || value === undefined || value === '') return null;
+  const num = parseFloat(value);
+  if (Number.isNaN(num)) return null;
+  return (num / 10 ** minorUnit).toString();
+}
+
+// Normalise a Store API product into the shape the app already renders, so the
+// rest of the components keep working unchanged.
+function mapProduct(p) {
+  const minorUnit = p.prices?.currency_minor_unit ?? 2;
+  const price = minorToMajor(p.prices?.price, minorUnit);
+  const regularPrice = minorToMajor(p.prices?.regular_price, minorUnit);
+  const salePrice = minorToMajor(p.prices?.sale_price, minorUnit);
+
+  return {
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    type: p.type,
+    permalink: p.permalink,
+    price: price ?? '0',
+    regular_price: regularPrice,
+    sale_price: salePrice,
+    on_sale:
+      Boolean(p.on_sale) ||
+      Boolean(salePrice && regularPrice && parseFloat(salePrice) < parseFloat(regularPrice)),
+    currency_symbol: p.prices?.currency_symbol ?? '£',
+    images: p.images || [],
+    short_description: p.short_description || '',
+    description: p.description || '',
+    stock_status: p.is_in_stock ? 'instock' : 'outofstock',
+    in_stock: Boolean(p.is_in_stock),
+    categories: (p.categories || []).map((c) => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+    })),
+  };
+}
+
 export const getProducts = async (params = {}) => {
   try {
-    const { data } = await wcApi.get('products', { params });
-    return data;
+    const { data } = await storeApi.get('/products', { params });
+    return data.map(mapProduct);
   } catch (error) {
     console.error('Error fetching products:', error.response?.data || error.message);
     throw error;
   }
 };
 
+// Same as getProducts but also returns the WooCommerce pagination headers.
+export const getProductsPage = async (params = {}) => {
+  const { data, headers } = await storeApi.get('/products', { params });
+  return {
+    products: data.map(mapProduct),
+    totalPages: parseInt(headers['x-wp-totalpages'] || '1', 10),
+    total: parseInt(headers['x-wp-total'] || '0', 10),
+  };
+};
+
 export const getProduct = async (id) => {
   try {
-    const { data } = await wcApi.get(`products/${id}`);
-    return data;
+    const { data } = await storeApi.get(`/products/${id}`);
+    return mapProduct(data);
   } catch (error) {
     console.error(`Error fetching product ${id}:`, error.response?.data || error.message);
     throw error;
@@ -51,34 +94,18 @@ export const getProduct = async (id) => {
 
 export const getCategories = async (params = {}) => {
   try {
-    const { data } = await wcApi.get('products/categories', { params });
-    return data;
+    const { data } = await storeApi.get('/products/categories', { params });
+    return data.map((c) => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+      count: c.count,
+      parent: c.parent,
+    }));
   } catch (error) {
     console.error('Error fetching categories:', error.response?.data || error.message);
     throw error;
   }
 };
 
-// Orders
-export const createOrder = async (orderData) => {
-  try {
-    const { data } = await wcApi.post('orders', orderData);
-    return data;
-  } catch (error) {
-    console.error('Error creating order:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-// WordPress Pages via WP REST API
-export const getWpPages = async () => {
-  try {
-    const { data } = await wpApi.get('/wp/v2/pages');
-    return data;
-  } catch (error) {
-    console.error('Error fetching WP pages:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export default wcApi;
+export default storeApi;

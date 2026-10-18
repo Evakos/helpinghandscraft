@@ -1,0 +1,132 @@
+.coming-soon {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #faf8f5;
+  color: #474343;
+  font-family: 'Lato', sans-serif;
+}
+
+.coming-soon__container {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.coming-soon__logo {
+  margin-bottom: 2.5rem;
+}
+
+.coming-soon__logo img {
+  height: 80px;
+  width: auto;
+}
+
+.coming-soon__tagline {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #7a7265;
+  margin-bottom: 1rem;
+}
+
+.coming-soon__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #474343;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.coming-soon__subtitle {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #7a7265;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+.coming-soon__divider {
+  width: 40px;
+  height: 1px;
+  background: #dbd5c9;
+  margin: 0 auto 2rem;
+}
+
+.coming-soon__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon__form input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #e8e3db;
+  background: #ffffff;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: #474343;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.coming-soon__form input:focus {
+  border-color: #474343;
+}
+
+.coming-soon__form input::placeholder {
+  color: #b5ada0;
+}
+
+.coming-soon__form button {
+  width: 100%;
+  padding: 0.9rem 2rem;
+  background: #474343;
+  color: #faf8f5;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.coming-soon__form button:hover {
+  background: #5a5555;
+}
+
+.coming-soon__form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.coming-soon__message {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.coming-soon__message--success {
+  color: #5a7a5a;
+}
+
+.coming-soon__message--error {
+  color: #b34a4a;
+}
+
+.coming-soon__footer {
+  margin-top: 3rem;
+  font-size: 0.75rem;
+  color: #b5ada0;
+  letter-spacing: 0.1em;
+}

@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         <p className="product-card-price">£{price}</p>
         <button
           className="add-to-cart-btn"
-          onClick={() => addToCart(product)}
+          onClick={() => addToCart(product.id)}
         >
           Add to Cart
         </button>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getProducts, getCategories } from '../api/woocommerce';
+import { getProductsPage, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
 import './Shop.css';
 
@@ -28,9 +28,9 @@ const Shop = () => {
         if (currentCategory) params.category = currentCategory;
         if (searchQuery) params.search = searchQuery;
 
-        const data = await getProducts(params);
-        setProducts(data);
-        setTotalPages(data.length < 12 ? currentPage : currentPage + 1);
+        const { products, totalPages } = await getProductsPage(params);
+        setProducts(products);
+        setTotalPages(totalPages || 1);
       } catch (err) {
         setError('Failed to load products. Check your API connection.');
         console.error(err);

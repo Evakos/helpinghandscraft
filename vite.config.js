@@ -9,12 +9,7 @@ export default defineConfig({
     sourcemap: false,
   },
   server: {
-    proxy: {
-      '/wp-json': {
-        target: 'https://helpinghandscraft.co.uk',
-        changeOrigin: true,
-        secure: true,
-      },
-    },
+    port: 5175,
+    strictPort: true,
   },
 })
