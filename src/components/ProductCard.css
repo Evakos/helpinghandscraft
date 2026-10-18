@@ -1,8 +1,10 @@
 .product-card {
   background: #ffffff;
-  border-radius: 0;
+  border: 2px solid #474343;
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 #474343;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -19,6 +21,11 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s ease;
+}
+
+.product-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 #474343;
 }
 
 .product-card:hover::after {
@@ -45,7 +52,8 @@
 }
 
 .product-card-body {
-  padding: 1.25rem 0;
+  padding: 1rem 1.1rem 1.2rem;
+  border-top: 2px solid #474343;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

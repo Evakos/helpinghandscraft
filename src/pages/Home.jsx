@@ -1,11 +1,70 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles, Truck, Gem, ArrowRight } from 'lucide-react';
+import logo from '../assets/logo.svg';
 import { getProducts, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
 import Newsletter from '../components/Newsletter';
 import './Home.css';
 
+// Floating craft ideas around the logo. Position, tint, size and motion are set per tile; see .float-tile in Home.css.
+const FLOATERS = [
+  { Icon: Scissors, tint: 'blush', x: 8, y: 14, size: 58, rot: -8, dur: 6.5, delay: 0 },
+  { Icon: Paintbrush, tint: 'sky', x: 74, y: 8, size: 62, rot: 7, dur: 7.5, delay: 0.8 },
+  { Icon: Ruler, tint: 'butter', x: 4, y: 52, size: 54, rot: 6, dur: 8, delay: 1.4 },
+  { Icon: Palette, tint: 'sage', x: 80, y: 46, size: 60, rot: -6, dur: 6.8, delay: 0.4 },
+  { Icon: Pencil, tint: 'lilac', x: 22, y: 76, size: 52, rot: -10, dur: 7.2, delay: 1.1 },
+  { Icon: Flower2, tint: 'blush', x: 62, y: 74, size: 56, rot: 9, dur: 8.4, delay: 0.2 },
+  { Icon: Gem, tint: 'sky', x: 40, y: 4, size: 44, rot: 5, dur: 6.2, delay: 1.7 },
+];
+
+const Hero = ({ children }) => (
+  <section className="hero">
+    <div className="hero-inner">
+      <div className="hero-copy">
+        <span className="hero-pill"><Sparkles size={14} strokeWidth={2} /> Curated craft supplies</span>
+        <h1>Craft supplies for every maker.</h1>
+        <p className="hero-lede">Handcrafted with love — unique creations and quality supplies for every maker, every project, every occasion.</p>
+        <div className="hero-actions">
+          <Link to="/shop" className="btn btn--solid">Browse the shop <ArrowRight size={16} strokeWidth={2} /></Link>
+          <a href="#categories" className="btn btn--outline">Shop by category</a>
+        </div>
+        <ul className="hero-points">
+          <li><Truck size={16} strokeWidth={1.75} /> Free UK delivery over £30</li>
+          <li><Heart size={16} strokeWidth={1.75} /> Handpicked with care</li>
+        </ul>
+        {children}
+      </div>
+
+      <div className="hero-visual" aria-hidden="true">
+        <div className="hero-card">
+          <div className="hero-card-dots" />
+          <img src={logo} alt="" className="hero-card-logo" />
+          {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
+            <span
+              key={i}
+              className={`float-tile float-tile--${tint}`}
+              style={{ left: `${x}%`, top: `${y}%`, width: size, height: size, '--rot': `${rot}deg`, '--dur': `${dur}s`, '--delay': `${delay}s` }}
+            >
+              <Icon size={size * 0.46} strokeWidth={1.6} />
+            </span>
+          ))}
+          <span className="hero-dot hero-dot--a" />
+          <span className="hero-dot hero-dot--b" />
+          <span className="hero-plus">+</span>
+        </div>
+        <div className="hero-tag">
+          <strong>Handmade with love</strong>
+          <span>curated craft supplies</span>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const CATEGORY_ICONS = [Scissors, Paintbrush, Palette, Ruler, Flower2, Pencil, Gem, Heart];
+const CATEGORY_TINTS = ['blush', 'sky', 'sage', 'butter', 'lilac', 'blush', 'sky', 'sage'];
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -40,17 +99,9 @@ const Home = () => {
   if (error) {
     return (
       <div className="home">
-        <section className="hero">
-          <div className="hero-content">
-            <p className="hero-subtitle">Curated Craft Supplies</p>
-            <h1>Helping Hands Craft</h1>
-            <p>Handcrafted with love — unique creations and quality supplies for every maker.</p>
-            <Link to="/shop" className="hero-cta">Browse Our Shop</Link>
-          </div>
-        </section>
+        <Hero />
         <div className="api-notice">
-          <p>⚠️ {error}</p>
-          <p>Check the <code>VITE_WC_DOMAIN</code> setting in your <code>.env</code> file.</p>
+          <p>We couldn't load the shop just now. Please refresh the page, or try again in a few minutes.</p>
         </div>
       </div>
     );
@@ -58,49 +109,49 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* ─── Hero ─── */}
-      <section className="hero">
-        <div className="hero-content">
-          <p className="hero-subtitle">Curated Craft Supplies</p>
-          <h1>Helping Hands Craft</h1>
-          <p>Handcrafted with love — unique creations and quality supplies for every maker, every project, every occasion.</p>
-          <Link to="/shop" className="hero-cta">Browse Our Shop</Link>
-        </div>
-      </section>
+      <Hero />
 
       <div className="section-wrapper">
         {/* ─── Categories ─── */}
         {categories.length > 0 && (
-          <section className="section">
-            <div className="section-header">
-              <p className="section-label">Categories</p>
-              <div className="section-divider" />
-              <h2>Shop by Category</h2>
-              <p>Find exactly what you need from our curated collections</p>
+          <section className="section" id="categories">
+            <div className="section-head">
+              <div>
+                <h2>Shop by category</h2>
+                <p>Find exactly what you need from our curated collections.</p>
+              </div>
+              <Link to="/shop" className="section-link">View all <ArrowRight size={15} strokeWidth={2} /></Link>
             </div>
             <div className="categories-grid">
-              {categories.map(cat => (
-                <Link
-                  key={cat.id}
-                  to={`/shop?category=${cat.id}`}
-                  className="category-card"
-                >
-                  <span className="category-card-icon">✦</span>
-                  <span className="category-name">{cat.name}</span>
-                </Link>
-              ))}
+              {categories.map((cat, i) => {
+                const Icon = CATEGORY_ICONS[i % CATEGORY_ICONS.length];
+                return (
+                  <Link key={cat.id} to={`/shop?category=${cat.id}`} className={`category-card category-card--${CATEGORY_TINTS[i % CATEGORY_TINTS.length]}`}>
+                    <span className="category-card-icon"><Icon size={22} strokeWidth={1.6} /></span>
+                    <span className="category-name">{cat.name}</span>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}
 
         {/* ─── Featured Products ─── */}
         <section className="section">
-          <div className="section-header">
-            <p className="section-label">Featured</p>
-            <div className="section-divider" />
-            <h2>Featured Products</h2>
-            <p>Our handpicked selection of the finest craft supplies</p>
+          <div className="section-head">
+            <div>
+              <h2>Featured products</h2>
+              <p>Our handpicked selection of the finest craft supplies.</p>
+            </div>
+            <Link to="/shop" className="section-link">View all <ArrowRight size={15} strokeWidth={2} /></Link>
           </div>
+          {!loading && featuredProducts.length === 0 && (
+            <div className="empty-shop">
+              <span className="why-icon why-icon--butter"><Sparkles size={20} strokeWidth={1.75} /></span>
+              <h3>New arrivals are on their way</h3>
+              <p>We're restocking the shelves. Leave your email below and we'll let you know the moment we're back.</p>
+            </div>
+          )}
           <div className="products-grid">
             {loading
               ? Array.from({ length: 8 }).map((_, i) => (
@@ -111,11 +162,29 @@ const Home = () => {
                 ))
             }
           </div>
-          <div className="view-all">
-            <Link to="/shop" className="view-all-btn">View All Products</Link>
-          </div>
         </section>
       </div>
+
+      {/* ─── Why shop here ─── */}
+      <section className="why">
+        <div className="why-grid">
+          <div className="why-card">
+            <span className="why-icon why-icon--blush"><Heart size={20} strokeWidth={1.75} /></span>
+            <h3>Handcrafted with love</h3>
+            <p>Unique creations and quality supplies for every maker, every project, every occasion.</p>
+          </div>
+          <div className="why-card">
+            <span className="why-icon why-icon--butter"><Sparkles size={20} strokeWidth={1.75} /></span>
+            <h3>Handpicked selection</h3>
+            <p>Every product is thoughtfully curated to inspire your next creation.</p>
+          </div>
+          <div className="why-card">
+            <span className="why-icon why-icon--sky"><Truck size={20} strokeWidth={1.75} /></span>
+            <h3>Free UK delivery</h3>
+            <p>Free delivery to the UK on orders over £30.</p>
+          </div>
+        </div>
+      </section>
 
       {/* ─── Studio Section ─── */}
       <section className="studio-section">
@@ -134,8 +203,12 @@ const Home = () => {
               community that celebrates the art of making.
             </p>
           </div>
-          <div className="studio-image">
-            <span>✦ Crafting since 2018 ✦</span>
+          <div className="studio-mosaic" aria-hidden="true">
+            {FLOATERS.slice(0, 6).map(({ Icon, tint }, i) => (
+              <span key={i} className={`mosaic-tile float-tile--${tint}`}>
+                <Icon size={34} strokeWidth={1.5} />
+              </span>
+            ))}
           </div>
         </div>
       </section>
