@@ -7,16 +7,41 @@ import SkeletonCard from '../components/SkeletonCard';
 import Newsletter from '../components/Newsletter';
 import './Home.css';
 
-// Floating craft ideas around the logo. Position, tint, size and motion are set per tile; see .float-tile in Home.css.
+// Floating craft ideas, spaced round the ring of the sunburst. Angle is in degrees from 12 o'clock; see .float-tile in Home.css.
 const FLOATERS = [
-  { Icon: Scissors, tint: 'blush', x: 8, y: 14, size: 58, rot: -8, dur: 6.5, delay: 0 },
-  { Icon: Paintbrush, tint: 'sky', x: 74, y: 8, size: 62, rot: 7, dur: 7.5, delay: 0.8 },
-  { Icon: Ruler, tint: 'butter', x: 4, y: 52, size: 54, rot: 6, dur: 8, delay: 1.4 },
-  { Icon: Palette, tint: 'sage', x: 80, y: 46, size: 60, rot: -6, dur: 6.8, delay: 0.4 },
-  { Icon: Pencil, tint: 'lilac', x: 22, y: 76, size: 52, rot: -10, dur: 7.2, delay: 1.1 },
-  { Icon: Flower2, tint: 'blush', x: 62, y: 74, size: 56, rot: 9, dur: 8.4, delay: 0.2 },
-  { Icon: Gem, tint: 'sky', x: 40, y: 4, size: 44, rot: 5, dur: 6.2, delay: 1.7 },
-];
+  { Icon: Scissors, tint: 'blush', angle: 0, size: 58, rot: -8, dur: 6.5, delay: 0 },
+  { Icon: Paintbrush, tint: 'sky', angle: 52, size: 62, rot: 7, dur: 7.5, delay: 0.8 },
+  { Icon: Ruler, tint: 'butter', angle: 103, size: 54, rot: 6, dur: 8, delay: 1.4 },
+  { Icon: Palette, tint: 'sage', angle: 155, size: 60, rot: -6, dur: 6.8, delay: 0.4 },
+  { Icon: Pencil, tint: 'lilac', angle: 206, size: 52, rot: -10, dur: 7.2, delay: 1.1 },
+  { Icon: Flower2, tint: 'blush', angle: 258, size: 56, rot: 9, dur: 8.4, delay: 0.2 },
+  { Icon: Gem, tint: 'sky', angle: 309, size: 48, rot: 5, dur: 6.2, delay: 1.7 },
+].map((f) => {
+  const rad = (f.angle * Math.PI) / 180;
+  return { ...f, x: 50 + 43 * Math.sin(rad), y: 50 - 43 * Math.cos(rad) };
+});
+
+// The sunburst from the logo: long rays, shorter rays between them, and a ring of small dashes. Lengths vary in a fixed pattern.
+const polar = (deg, r) => {
+  const rad = (deg * Math.PI) / 180;
+  return [Math.sin(rad) * r, -Math.cos(rad) * r];
+};
+const SUN_RAYS = (() => {
+  const rays = [];
+  const longPattern = [30, 22, 34, 26, 20, 32];
+  const shortPattern = [12, 18, 10, 15];
+  for (let i = 0; i < 36; i += 1) {
+    const a = i * 10;
+    rays.push({ a, r1: 60, r2: 60 + longPattern[i % longPattern.length], w: 2.4 });
+    rays.push({ a: a + 5, r1: 66, r2: 66 + shortPattern[i % shortPattern.length], w: 2 });
+    if (i % 2 === 0) rays.push({ a: a + 2.5, r1: 94, r2: 98, w: 1.6 });
+  }
+  return rays.map((r) => {
+    const [x1, y1] = polar(r.a, r.r1);
+    const [x2, y2] = polar(r.a, r.r2);
+    return { ...r, x1, y1, x2, y2 };
+  });
+})();
 
 // Torn paper edge under the hero: two paper layers, each roughened by noise. A low frequency pass makes the edge wander, a high frequency
 // pass frays it into fibres. See .hero::before and .hero::after in Home.css.
@@ -55,22 +80,24 @@ const Hero = ({ children }) => (
       </div>
 
       <div className="hero-visual" aria-hidden="true">
-        <div className="hero-card">
-          <div className="hero-card-dots" />
-          <span className="float-tile float-tile--pink hero-card-heart"><Heart size={46} strokeWidth={1.6} /></span>
-          {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
-            <span
-              key={i}
-              className={`float-tile float-tile--${tint}`}
-              style={{ left: `${x}%`, top: `${y}%`, width: size, height: size, '--rot': `${rot}deg`, '--dur': `${dur}s`, '--delay': `${delay}s` }}
-            >
-              <Icon size={size * 0.46} strokeWidth={1.6} />
-            </span>
-          ))}
-          <span className="hero-dot hero-dot--a" />
-          <span className="hero-dot hero-dot--b" />
-          <span className="hero-plus">+</span>
-        </div>
+        <svg viewBox="-100 -100 200 200" className="sun">
+          <g className="sun-spin">
+            {SUN_RAYS.map((r, i) => (
+              <line key={i} x1={r.x1} y1={r.y1} x2={r.x2} y2={r.y2} strokeWidth={r.w} />
+            ))}
+          </g>
+          <circle r="52" className="sun-disc" />
+        </svg>
+        <span className="float-tile float-tile--pink hero-sun-heart"><Heart size={44} strokeWidth={1.6} /></span>
+        {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
+          <span
+            key={i}
+            className={`float-tile float-tile--${tint}`}
+            style={{ left: `${x}%`, top: `${y}%`, width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, '--rot': `${rot}deg`, '--dur': `${dur}s`, '--delay': `${delay}s` }}
+          >
+            <Icon size={size * 0.46} strokeWidth={1.6} />
+          </span>
+        ))}
         <div className="hero-tag">
           <strong>Handmade with love</strong>
           <span>curated craft supplies</span>

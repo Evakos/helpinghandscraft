@@ -154,36 +154,49 @@
   gap: 0.5rem;
 }
 
-/* Visual: a framed card with the logo and floating craft ideas */
+/* Visual: the logo's sunburst, with the craft ideas floating round its ring */
 .hero-visual {
   position: relative;
-  padding: 0 14px 14px 0;
+  width: 100%;
+  max-width: 540px;
+  aspect-ratio: 1;
+  justify-self: center;
 }
 
-.hero-card {
-  position: relative;
-  aspect-ratio: 1 / 0.92;
-  background: #fff;
-  border: 2px solid var(--ink);
-  border-radius: 22px;
-  box-shadow: 12px 12px 0 var(--blush), 12px 12px 0 2px var(--ink);
-  overflow: hidden;
-}
-
-.hero-card-dots {
+.sun {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(59, 60, 106, 0.16) 1px, transparent 1px);
-  background-size: 22px 22px;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-/* The big pink heart in the middle of the card. */
-.hero-card-heart {
+.sun line {
+  stroke: var(--ink);
+}
+
+.sun-spin {
+  transform-origin: 0 0;
+  animation: hhc-spin 140s linear infinite;
+}
+
+.sun-disc {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+@keyframes hhc-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* The big pink heart in the middle of the disc. */
+.hero-sun-heart {
   left: 50%;
   top: 50%;
-  width: 104px;
-  height: 104px;
-  margin: -52px 0 0 -52px;
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
   --rot: -4deg;
   --dur: 7s;
 }
@@ -213,26 +226,6 @@
   50% { transform: translateY(-12px) rotate(calc(var(--rot, 0deg) * -0.6)); }
 }
 
-.hero-dot {
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid var(--ink);
-}
-
-.hero-dot--a { width: 14px; height: 14px; background: var(--accent); right: 38%; top: 30%; }
-.hero-dot--b { width: 12px; height: 12px; background: #fcc82f; left: 18%; top: 48%; }
-
-.hero-plus {
-  position: absolute;
-  left: 64%;
-  top: 24%;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--accent);
-  line-height: 1;
-}
-
 .hero-tag {
   position: absolute;
   right: 0;
@@ -252,6 +245,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .float-tile { animation: none; transform: rotate(var(--rot, 0deg)); }
+  .sun-spin { animation: none; }
 }
 
 /* ─── Sections ─── */
@@ -517,7 +511,7 @@
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .hero-visual { max-width: 460px; width: 100%; margin: 0 auto; }
+  .hero-visual { max-width: 440px; }
   .why-grid { grid-template-columns: 1fr; }
 }
 
