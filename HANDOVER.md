@@ -33,7 +33,7 @@ Written for: an AI assistant (Claude Code) picking this project up in a fresh ch
 | SSH | `ssh -i ~/.ssh/hetzner_evakos_main root@138.201.254.101`. See the Evakos Cloud notes in Claude's memory (`reference_evakos_cloud_infra`) |
 | Backend fixes I made | Traefik router label `traefik.http.routers.eu-helpinghandscraft.tls.certresolver=cloudflare` (the old `le` resolver never issued a certificate); `/var/www/html/.htaccess` with the standard WordPress rewrites; `wp-content/mu-plugins/hhc-cors.php` (source in `wordpress-plugin/`) allowing browser requests from the shop's own origins only. `wordpress-plugin/hhc-menu-api.php` is the active menu endpoint plugin |
 | Store API | Public `wc/store/v1`, no keys. The storefront never holds WooCommerce secrets |
-| Resend | Account has these verified domains: tamp.gr, alortanapi.com, mindfulcoherence.com, stevehattfishmongers.co.uk, evakos.io, digibrix.io, logos.ninja. `helpinghandscraft.co.uk` is NOT verified. Segment "Helping Hands Craft past customers" exists (id `6f583d36-e4f5-430d-b285-5c5ab31173c8`) and is empty |
+| Resend | Shared Evakos Resend account (it also holds other sites' domains; leave those alone). `helpinghandscraft.co.uk` is NOT verified, so no branded sending yet. Segment "Helping Hands Craft past customers" exists (id `6f583d36-e4f5-430d-b285-5c5ab31173c8`) and is empty |
 | Google | Merchant Center customer ID `526503943` (product list is empty now). Search Console property for the domain. Chris may still have access to both as `info@evakos.io`; unconfirmed |
 | Evakos dashboard | The shop is listed in Sites for Sale (status Building) and Project Build (kind client, uses CMS). Source is `~/Local Development/evakos/src/lib/sites-for-sale.ts` |
 
