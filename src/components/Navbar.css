@@ -24,14 +24,14 @@
   color: #cfe4e9;
 }
 
-/* Logo at the far left, the links centred in the space between, the account and bag icons at the far right. */
+/* Logo at the far left; the links and the account and bag icons grouped on the right. */
 .navbar-container {
   width: 100%;
   padding: 0 2.5rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
   height: 88px;
   transition: height 0.3s ease;
 }
@@ -60,7 +60,7 @@
 }
 
 .navbar-links {
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
   gap: 2rem;
   align-items: center;
