@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles, Truck, Gem, ArrowRight } from 'lucide-react';
 import { getProducts, getCategories } from '../api/woocommerce';
@@ -22,6 +22,8 @@ const FLOATERS = [
 });
 
 // The sunburst from the logo: long rays, shorter rays between them, and a ring of small dashes. Lengths vary in a fixed pattern.
+// One full turn of the sunburst takes this long (seconds). The rotation is driven from code, not CSS, so the tiles can tell where each ray is.
+const SUN_TURN_SECONDS = 140;
 const polar = (deg, r) => {
   const rad = (deg * Math.PI) / 180;
   return [Math.sin(rad) * r, -Math.cos(rad) * r];
@@ -45,6 +47,10 @@ const SUN_RAYS = (() => {
 
 // Torn paper edge under the hero: two paper layers, each roughened by noise. A low frequency pass makes the edge wander, a high frequency
 // pass frays it into fibres. See .hero::before and .hero::after in Home.css.
+// Angles of the longest rays, the ones that reach right through the tiles. When one passes a tile, the tile's colour warms up (see .float-tile in Home.css).
+const LONG_RAYS = SUN_RAYS.filter((r) => r.r1 === 60 && r.r2 >= 92).map((r) => r.a);
+const GLOW_SPREAD_DEGREES = 3.5;
+
 const TearFilters = () => (
   <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute' }}>
     <defs>
@@ -60,7 +66,33 @@ const TearFilters = () => (
   </svg>
 );
 
-const Hero = ({ children }) => (
+const Hero = ({ children }) => {
+  const sunRef = useRef(null);
+  const tileRefs = useRef([]);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const t0 = performance.now();
+    let frame;
+    const tick = (now) => {
+      const turn = ((now - t0) / 1000) * (360 / SUN_TURN_SECONDS);
+      sunRef.current?.setAttribute('transform', `rotate(${turn % 360})`);
+      tileRefs.current.forEach((el, i) => {
+        if (!el) return;
+        let glow = 0;
+        for (const a of LONG_RAYS) {
+          const d = ((((a + turn - FLOATERS[i].angle) % 360) + 540) % 360) - 180;
+          glow = Math.max(glow, Math.exp(-(d * d) / (2 * GLOW_SPREAD_DEGREES ** 2)));
+        }
+        el.style.setProperty('--glow', glow.toFixed(3));
+      });
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return (
   <section className="hero">
     <TearFilters />
     <div className="hero-inner">
@@ -81,7 +113,7 @@ const Hero = ({ children }) => (
 
       <div className="hero-visual" aria-hidden="true">
         <svg viewBox="-100 -100 200 200" className="sun">
-          <g className="sun-spin">
+          <g ref={sunRef} className="sun-spin">
             {SUN_RAYS.map((r, i) => (
               <line key={i} x1={r.x1} y1={r.y1} x2={r.x2} y2={r.y2} strokeWidth={r.w} />
             ))}
@@ -92,6 +124,7 @@ const Hero = ({ children }) => (
         {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
           <span
             key={i}
+            ref={(el) => { tileRefs.current[i] = el; }}
             className={`float-tile float-tile--${tint}`}
             style={{ left: `${x}%`, top: `${y}%`, width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, '--rot': `${rot}deg`, '--dur': `${dur}s`, '--delay': `${delay}s` }}
           >
@@ -105,7 +138,8 @@ const Hero = ({ children }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 const CATEGORY_ICONS = [Scissors, Paintbrush, Palette, Ruler, Flower2, Pencil, Gem, Heart];
 const CATEGORY_TINTS = ['blush', 'sky', 'sage', 'butter', 'lilac', 'blush', 'sky', 'sage'];

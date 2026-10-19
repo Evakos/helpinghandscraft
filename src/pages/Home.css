@@ -181,19 +181,10 @@
   stroke: var(--ink);
 }
 
-.sun-spin {
-  transform-origin: 0 0;
-  animation: hhc-spin 140s linear infinite;
-}
-
 .sun-disc {
   fill: #fff;
   stroke: var(--ink);
   stroke-width: 2;
-}
-
-@keyframes hhc-spin {
-  to { transform: rotate(360deg); }
 }
 
 /* The big pink heart in the middle of the disc. */
@@ -220,12 +211,19 @@
   will-change: transform;
 }
 
-.float-tile--pink { background: #f6a6c8; }
-.float-tile--blush { background: var(--blush); }
-.float-tile--sky { background: var(--sky); }
-.float-tile--sage { background: var(--sage); }
-.float-tile--butter { background: var(--butter); }
-.float-tile--lilac { background: var(--lilac); }
+/* Each tile has a base tint and a richer shade it warms towards (0 to 1 in --glow) when a long sun ray passes through it. */
+.float-tile {
+  --glow: 0;
+  background: var(--tile-base, #fff);
+  background: color-mix(in srgb, var(--tile-warm, #fff) calc(var(--glow) * 100%), var(--tile-base, #fff));
+}
+
+.float-tile--pink { --tile-base: #f6a6c8; --tile-warm: #f6a6c8; }
+.float-tile--blush { --tile-base: var(--blush); --tile-warm: #f6a6c8; }
+.float-tile--sky { --tile-base: var(--sky); --tile-warm: #90c4cf; }
+.float-tile--sage { --tile-base: var(--sage); --tile-warm: #9fd4b4; }
+.float-tile--butter { --tile-base: var(--butter); --tile-warm: #fcd25a; }
+.float-tile--lilac { --tile-base: var(--lilac); --tile-warm: #b9b3ea; }
 
 @keyframes hhc-float {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
@@ -251,7 +249,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .float-tile { animation: none; transform: rotate(var(--rot, 0deg)); }
-  .sun-spin { animation: none; }
 }
 
 /* ─── Sections ─── */
@@ -490,6 +487,7 @@
 }
 
 .mosaic-tile {
+  background: var(--tile-base, #fff);
   aspect-ratio: 1;
   border-radius: 16px;
   border: 2px solid #cfe4e9;
