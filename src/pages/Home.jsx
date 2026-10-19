@@ -97,7 +97,7 @@ const Hero = ({ children }) => {
     <TearFilters />
     <div className="hero-inner">
       <div className="hero-copy">
-        <span className="hero-pill"><Sparkles size={14} strokeWidth={2} /> Curated craft supplies</span>
+        <span className="hero-pill"><Heart size={14} strokeWidth={2} fill="#d0468a" color="#d0468a" /> Curated craft supplies</span>
         <h1>Craft supplies for every maker.</h1>
         <p className="hero-lede">Handcrafted with love: unique creations and quality supplies for every maker, every project, every occasion.</p>
         <div className="hero-actions">
