@@ -1,8 +1,10 @@
+import Newsletter from './Newsletter';
 import './Footer.css';
 
 const Footer = () => {
   return (
     <footer className="footer">
+      <Newsletter />
       <div className="footer-container">
         <div className="footer-brand">
           <h3>Helping Hands Craft</h3>

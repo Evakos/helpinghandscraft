@@ -5,7 +5,6 @@ import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles,
 import { getProducts, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
-import Newsletter from '../components/Newsletter';
 import './Home.css';
 
 // Floating craft ideas, spaced round the ring of the sunburst. Angle is in degrees from 12 o'clock; see .float-tile in Home.css.
@@ -294,8 +293,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─── Newsletter ─── */}
-      <Newsletter />
     </div>
   );
 };

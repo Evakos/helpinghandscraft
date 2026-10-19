@@ -1,8 +1,9 @@
-/* ─── Newsletter: a slim band, text on the left and the sign-up form in one row on the right ─── */
+/* ─── Newsletter: the top row of the footer, same navy. Text on the left, the sign-up form in one row on the right ─── */
 
 .newsletter-section {
-  background: #e4f0f3;
-  padding: 2.25rem 2rem;
+  background: transparent;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(207, 228, 233, 0.18);
 }
 
 .newsletter-container {
@@ -33,14 +34,14 @@
   font-size: 1.7rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: #3b3c6a;
+  color: #cfe4e9;
   line-height: 1.15;
   margin: 0;
 }
 
 .newsletter-description {
   grid-area: desc;
-  color: #5b5d8c;
+  color: #c9dde3;
   font-size: 0.88rem;
   font-weight: 400;
   line-height: 1.5;
@@ -65,7 +66,7 @@
   flex: 1;
   min-width: 0;
   padding: 0.7rem 0.9rem;
-  border: 2px solid #3b3c6a;
+  border: 2px solid #90c4cf;
   border-radius: 10px;
   background: #ffffff;
   font-family: 'Lato', sans-serif;
@@ -79,7 +80,8 @@
 }
 
 .newsletter-input:focus {
-  box-shadow: 0 0 0 3px rgba(208, 70, 138, 0.25);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(208, 70, 138, 0.45);
 }
 
 .newsletter-input--name {
@@ -119,11 +121,11 @@
 }
 
 .newsletter-message--success {
-  color: #2f7a52;
+  color: #9fd4b4;
 }
 
 .newsletter-message--error {
-  color: #b3261e;
+  color: #ffb4ab;
 }
 
 /* ─── Responsive ─── */
