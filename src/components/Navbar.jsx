@@ -60,8 +60,6 @@ const Navbar = () => {
   ];
 
   const items = menuItems.length > 0 ? menuItems : defaultItems;
-  const leftItems = items.slice(0, 3);
-  const rightItems = items.slice(3, 6);
 
   const getPath = (item) => {
     try {
@@ -103,24 +101,21 @@ const Navbar = () => {
           {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
 
-        <div className="navbar-links navbar-links--left">{leftItems.map(renderLink)}</div>
-
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Helping Hands Craft" className="navbar-logo" />
         </Link>
 
-        <div className="navbar-links navbar-links--right">
-          {rightItems.map(renderLink)}
-          <span className="navbar-icons">
-            <Link to="/account" className="icon-link" aria-label="Account">
-              <User size={20} strokeWidth={1.5} />
-            </Link>
-            <Link to="/cart" className="icon-link cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
-              <ShoppingBag size={20} strokeWidth={1.5} />
-              {count > 0 && <span className="cart-badge">{count}</span>}
-            </Link>
-          </span>
-        </div>
+        <div className="navbar-links">{items.slice(0, 6).map(renderLink)}</div>
+
+        <span className="navbar-icons">
+          <Link to="/account" className="icon-link" aria-label="Account">
+            <User size={20} strokeWidth={1.5} />
+          </Link>
+          <Link to="/cart" className="icon-link cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
+            <ShoppingBag size={20} strokeWidth={1.5} />
+            {count > 0 && <span className="cart-badge">{count}</span>}
+          </Link>
+        </span>
       </div>
 
       <div className={`navbar-drawer ${open ? 'navbar-drawer--open' : ''}`} aria-hidden={!open} onClick={() => setOpen(false)}>
