@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles, Truck, Gem, ArrowRight } from 'lucide-react';
-import logo from '../assets/logo.svg';
 import { getProducts, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
@@ -58,7 +57,6 @@ const Hero = ({ children }) => (
       <div className="hero-visual" aria-hidden="true">
         <div className="hero-card">
           <div className="hero-card-dots" />
-          <img src={logo} alt="" className="hero-card-logo" />
           {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
             <span
               key={i}

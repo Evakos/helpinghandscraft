@@ -23,13 +23,13 @@
   color: #dbd5c9;
 }
 
-/* Three zones: links on the left, logo in the centre, bag on the right. */
+/* Logo on the left, links and the bag pushed to the right. */
 .navbar-container {
   width: 100%;
   padding: 0 2.5rem;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  gap: 2.5rem;
   height: 92px;
   transition: height 0.3s ease;
 }
@@ -41,9 +41,9 @@
 .navbar-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
   text-decoration: none;
   color: #474343;
+  flex-shrink: 0;
 }
 
 .navbar-logo {
@@ -63,12 +63,8 @@
   align-items: center;
 }
 
-.navbar-links--left {
-  justify-content: flex-start;
-}
-
-.navbar-links--right {
-  justify-content: flex-end;
+.navbar-links {
+  margin-left: auto;
 }
 
 .nav-link {
@@ -148,7 +144,6 @@
   cursor: pointer;
   padding: 0.5rem;
   margin-left: -0.5rem;
-  justify-self: start;
 }
 
 .navbar-drawer {
@@ -178,9 +173,17 @@
   }
 
   /* On mobile the links live in the drawer; only the bag stays in the bar. */
-  .navbar-links--left,
+  .navbar-container {
+    gap: 0.75rem;
+  }
+
+  .navbar-links,
   .cart-link-label {
     display: none;
+  }
+
+  .cart-link {
+    margin-left: auto;
   }
 
   .navbar-drawer {

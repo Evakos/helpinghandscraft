@@ -94,19 +94,17 @@ const Navbar = () => {
           {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
 
-        <div className="navbar-links navbar-links--left">{items.map(renderLink)}</div>
-
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Helping Hands Craft" className="navbar-logo" />
         </Link>
 
-        <div className="navbar-links navbar-links--right">
-          <Link to="/cart" className="cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
-            <ShoppingBag size={21} strokeWidth={1.5} />
-            <span className="cart-link-label">Bag</span>
-            {count > 0 && <span className="cart-badge">{count}</span>}
-          </Link>
-        </div>
+        <div className="navbar-links">{items.map(renderLink)}</div>
+
+        <Link to="/cart" className="cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
+          <ShoppingBag size={21} strokeWidth={1.5} />
+          <span className="cart-link-label">Bag</span>
+          {count > 0 && <span className="cart-badge">{count}</span>}
+        </Link>
       </div>
 
       <div className={`navbar-drawer ${open ? 'navbar-drawer--open' : ''}`} aria-hidden={!open} onClick={() => setOpen(false)}>
