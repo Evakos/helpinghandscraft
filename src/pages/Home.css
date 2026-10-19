@@ -57,9 +57,14 @@
   background-color: #e4f0f3;
   background-image: radial-gradient(rgba(59, 60, 106, 0.2) 1px, transparent 1px);
   background-size: 24px 24px;
-  padding: 5.5rem 0 6.5rem;
+  padding: 3rem 0 5rem;
   position: relative;
   overflow: hidden;
+  /* Full height: the screen minus the announcement strip (32px) and the nav bar (88px). */
+  min-height: calc(100vh - 120px);
+  min-height: calc(100svh - 120px);
+  display: flex;
+  align-items: center;
 }
 
 /* Torn paper edge: a pale fibre layer behind, the page colour in front, both roughened by the SVG filters in Home.jsx. */
@@ -87,6 +92,7 @@
 }
 
 .hero-inner {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
