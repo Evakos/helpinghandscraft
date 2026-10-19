@@ -19,8 +19,26 @@ const FLOATERS = [
   { Icon: Gem, tint: 'sky', x: 40, y: 4, size: 44, rot: 5, dur: 6.2, delay: 1.7 },
 ];
 
+// Torn paper edge under the hero: two paper layers, each roughened by noise. A low frequency pass makes the edge wander, a high frequency
+// pass frays it into fibres. See .hero::before and .hero::after in Home.css.
+const TearFilters = () => (
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute' }}>
+    <defs>
+      {[['hhc-tear-a', 3], ['hhc-tear-b', 11]].map(([id, seed]) => (
+        <filter key={id} id={id} x="-2%" y="-80%" width="104%" height="260%" colorInterpolationFilters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018 0.09" numOctaves="2" seed={seed} result="wander" />
+          <feDisplacementMap in="SourceGraphic" in2="wander" scale="14" xChannelSelector="R" yChannelSelector="G" result="rough" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed={seed + 5} result="fibre" />
+          <feDisplacementMap in="rough" in2="fibre" scale="5" xChannelSelector="R" yChannelSelector="B" />
+        </filter>
+      ))}
+    </defs>
+  </svg>
+);
+
 const Hero = ({ children }) => (
   <section className="hero">
+    <TearFilters />
     <div className="hero-inner">
       <div className="hero-copy">
         <span className="hero-pill"><Sparkles size={14} strokeWidth={2} /> Curated craft supplies</span>
