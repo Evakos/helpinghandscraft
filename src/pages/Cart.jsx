@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
+import { Minus, Plus, X, ShoppingBag, ArrowRight, ArrowLeft, Truck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { formatPrice } from '../api/woocommerce';
 import './Cart.css';
+
+// Cart items carry the backend permalink; keep shoppers on this site by using its slug.
+const productPath = (item) => {
+  const slug = item.permalink?.split('/').filter(Boolean).pop();
+  return slug ? `/product/${slug}` : '/shop';
+};
 
 const Cart = () => {
   const { items, total, currency, loading, removeFromCart, updateQuantity, checkoutUrl } = useCart();
@@ -13,11 +20,12 @@ const Cart = () => {
     return (
       <div className="cart-page">
         <div className="cart-empty">
-          <h1>{loading ? 'Loading cart...' : 'Your Cart is Empty'}</h1>
+          <span className="cart-empty-icon"><ShoppingBag size={34} /></span>
+          <h1>{loading ? 'Loading your cart' : 'Your cart is empty'}</h1>
           {!loading && (
             <>
-              <p>Looks like you haven't added anything yet.</p>
-              <Link to="/shop" className="view-all-btn">Browse Products</Link>
+              <p>Nothing here yet. Have a look around the shop.</p>
+              <Link to="/shop" className="cart-btn">Browse products <ArrowRight size={16} /></Link>
             </>
           )}
         </div>
@@ -27,21 +35,22 @@ const Cart = () => {
 
   return (
     <div className="cart-page">
-      <div className="cart-container">
-        <div className="cart-header">
-          <h1>Shopping Cart</h1>
-        </div>
+      <header className="cart-hero">
+        <p className="cart-hero-label">Your basket</p>
+        <h1>Shopping cart</h1>
+      </header>
 
+      <div className="cart-container">
         <div className="cart-items">
           {items.map(item => (
             <div key={item.key} className="cart-item">
-              <div className="cart-item-image">
+              <Link to={productPath(item)} className="cart-item-image">
                 <img src={item.images?.[0]?.src || 'https://via.placeholder.com/100'} alt={item.name} />
-              </div>
+              </Link>
               <div className="cart-item-info">
-                <a href={item.permalink} className="cart-item-name">
+                <Link to={productPath(item)} className="cart-item-name">
                   {item.name}
-                </a>
+                </Link>
                 <p className="cart-item-price">{itemPrice(item)}</p>
               </div>
               <div className="cart-item-quantity">
@@ -51,35 +60,41 @@ const Cart = () => {
                       ? removeFromCart(item.key)
                       : updateQuantity(item.key, item.quantity - 1)
                   }
-                  className="qty-btn"
+                  className="cart-qty-btn"
+                  aria-label="Decrease quantity"
                 >
-                  −
+                  <Minus size={15} />
                 </button>
-                <span className="qty-value">{item.quantity}</span>
+                <span className="cart-qty-value">{item.quantity}</span>
                 <button
                   onClick={() => updateQuantity(item.key, item.quantity + 1)}
-                  className="qty-btn"
+                  className="cart-qty-btn"
+                  aria-label="Increase quantity"
                 >
-                  +
+                  <Plus size={15} />
                 </button>
               </div>
               <button
                 className="remove-btn"
                 onClick={() => removeFromCart(item.key)}
+                aria-label={`Remove ${item.name}`}
               >
-                ✕
+                <X size={18} />
               </button>
             </div>
           ))}
         </div>
 
-        <div className="cart-summary">
+        <aside className="cart-summary">
+          <h2>Order summary</h2>
           <div className="cart-total">
-            Total: <span className="total-amount">{total}</span>
+            <span>Total</span>
+            <span className="total-amount">{total}</span>
           </div>
-          <a href={checkoutUrl} className="view-all-btn checkout-btn">Checkout</a>
-          <Link to="/shop" className="continue-shopping">Continue Shopping</Link>
-        </div>
+          <p className="cart-delivery"><Truck size={17} /> Free UK delivery on orders over £30</p>
+          <a href={checkoutUrl} className="cart-btn cart-btn--wide">Checkout <ArrowRight size={16} /></a>
+          <Link to="/shop" className="continue-shopping"><ArrowLeft size={15} /> Continue shopping</Link>
+        </aside>
       </div>
     </div>
   );

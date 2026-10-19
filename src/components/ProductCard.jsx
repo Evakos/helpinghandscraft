@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './ProductCard.css';
 
@@ -22,6 +23,7 @@ const ProductCard = ({ product }) => {
           className="add-to-cart-btn"
           onClick={() => addToCart(product.id)}
         >
+          <ShoppingBag size={16} />
           Add to Cart
         </button>
       </div>

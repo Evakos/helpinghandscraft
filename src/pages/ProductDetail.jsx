@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Minus, Plus, Check, ShoppingBag, Truck } from 'lucide-react';
 import { getProductBySlug } from '../api/woocommerce';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
@@ -40,14 +41,14 @@ const ProductDetail = () => {
   };
 
   if (loading) {
-    return <div className="product-detail-loading">Loading product...</div>;
+    return <div className="product-detail-loading">Loading product</div>;
   }
 
   if (error || !product) {
     return (
       <div className="product-detail-error">
         <p>{error || 'Product not found.'}</p>
-        <Link to="/shop" className="back-link">← Back to Shop</Link>
+        <Link to="/shop" className="back-link"><ArrowLeft size={16} /> Back to shop</Link>
       </div>
     );
   }
@@ -61,7 +62,7 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       <div className="product-detail-container">
-        <Link to="/shop" className="back-link">← Back to Shop</Link>
+        <Link to="/shop" className="back-link"><ArrowLeft size={16} /> Back to shop</Link>
         
         <div className="product-detail-content">
           <div className="product-gallery">
@@ -106,14 +107,16 @@ const ProductDetail = () => {
 
             {product.description && (
               <div className="product-description">
-                <h3>Description</h3>
+                <h3>About this product</h3>
                 <div dangerouslySetInnerHTML={{ __html: product.description }} />
               </div>
             )}
 
             {product.stock_status && (
               <p className={`stock-status ${product.stock_status}`}>
-                {product.stock_status === 'instock' ? '✓ In Stock' : '✕ Out of Stock'}
+                {product.stock_status === 'instock'
+                  ? <><Check size={15} /> In stock</>
+                  : 'Out of stock'}
               </p>
             )}
 
@@ -123,34 +126,34 @@ const ProductDetail = () => {
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="qty-btn"
+                    aria-label="Decrease quantity"
                   >
-                    −
+                    <Minus size={16} />
                   </button>
                   <span className="qty-value">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="qty-btn"
+                    aria-label="Increase quantity"
                   >
-                    +
+                    <Plus size={16} />
                   </button>
                 </div>
                 <button
-                  className={`add-to-cart-btn ${addedToCart ? 'added' : ''}`}
+                  className={`pd-add-btn ${addedToCart ? 'added' : ''}`}
                   onClick={handleAddToCart}
                 >
-                  {addedToCart ? '✓ Added' : 'Add to Cart'}
+                  {addedToCart ? <><Check size={18} /> Added</> : <><ShoppingBag size={18} /> Add to cart</>}
                 </button>
               </div>
             )}
 
-            {product.categories && (
+            <p className="product-delivery"><Truck size={18} /> Free UK delivery on orders over £30</p>
+
+            {product.categories?.length > 0 && (
               <div className="product-categories">
-                <strong>Categories:</strong>
-                {product.categories.map((cat, index) => (
-                  <span key={cat.id}>
-                    {index > 0 && ', '}
-                    <Link to={`/shop?category=${cat.id}`}>{cat.name}</Link>
-                  </span>
+                {product.categories.map((cat) => (
+                  <Link key={cat.id} to={`/shop?category=${cat.id}`} className="product-cat-chip">{cat.name}</Link>
                 ))}
               </div>
             )}
