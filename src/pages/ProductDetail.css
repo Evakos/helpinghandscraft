@@ -33,7 +33,7 @@
 }
 
 .back-link:hover {
-  color: #383868;
+  color: #3b3c6a;
 }
 
 .product-detail-content {
@@ -87,7 +87,7 @@
 
 .thumbnail:hover,
 .thumbnail.active {
-  border-color: #383868;
+  border-color: #3b3c6a;
 }
 
 /* ─── Product Info ─── */
@@ -101,7 +101,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2.2rem;
   font-weight: 500;
-  color: #383868;
+  color: #3b3c6a;
   margin: 0;
   line-height: 1.2;
 }
@@ -117,7 +117,7 @@
   font-family: 'Lato', sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
-  color: #383868;
+  color: #3b3c6a;
 }
 
 .regular-price {
@@ -146,7 +146,7 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #383868;
+  color: #3b3c6a;
   margin-bottom: 0.75rem;
 }
 
@@ -187,7 +187,7 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 400;
-  color: #383868;
+  color: #3b3c6a;
   transition: background 0.2s ease;
 }
 
@@ -201,15 +201,15 @@
   font-size: 1rem;
   min-width: 40px;
   text-align: center;
-  color: #383868;
+  color: #3b3c6a;
 }
 
 .add-to-cart-btn {
   flex: 1;
   padding: 0.8rem 2rem;
-  background: #383868;
+  background: #3b3c6a;
   color: #cfe4e9;
-  border: 1px solid #383868;
+  border: 1px solid #3b3c6a;
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -235,7 +235,7 @@
 
 .product-categories strong {
   font-weight: 700;
-  color: #383868;
+  color: #3b3c6a;
   margin-right: 0.3rem;
 }
 
@@ -246,5 +246,5 @@
 }
 
 .product-categories a:hover {
-  color: #383868;
+  color: #3b3c6a;
 }

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { WC_DOMAIN } from '../api/woocommerce';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.svg';
 import './Navbar.css';
 
 const Navbar = () => {

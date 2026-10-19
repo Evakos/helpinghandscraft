@@ -35,7 +35,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2.5rem;
   font-weight: 500;
-  color: #383868;
+  color: #3b3c6a;
   margin-bottom: 0.75rem;
 }
 
@@ -69,7 +69,7 @@
   background: #ffffff;
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
-  color: #383868;
+  color: #3b3c6a;
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -79,7 +79,7 @@
 }
 
 .newsletter-input:focus {
-  border-color: #383868;
+  border-color: #3b3c6a;
 }
 
 .newsletter-input--name {
@@ -89,9 +89,9 @@
 .newsletter-btn {
   width: 100%;
   padding: 0.9rem 2.5rem;
-  background: #383868;
+  background: #3b3c6a;
   color: #cfe4e9;
-  border: 1px solid #383868;
+  border: 1px solid #3b3c6a;
   font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
   font-weight: 400;

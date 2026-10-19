@@ -2,7 +2,7 @@
    Chunky outlined cards with a hard offset shadow, pastel tints and a dotted hero, in the shop's charcoal and stone. */
 
 .home {
-  --ink: #383868;
+  --ink: #3b3c6a;
   --muted: #5b5d8c;
   --paper: #f8fbfc;
   --stone: #cfe4e9;
@@ -55,7 +55,7 @@
 /* ─── Hero ─── */
 .hero {
   background-color: #e4f0f3;
-  background-image: radial-gradient(rgba(56, 56, 104, 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(59, 60, 106, 0.2) 1px, transparent 1px);
   background-size: 24px 24px;
   padding: 5.5rem 0 6.5rem;
   position: relative;
@@ -101,7 +101,7 @@
   align-items: center;
   gap: 0.4rem;
   background: #fff;
-  border: 1px solid rgba(56, 56, 104, 0.18);
+  border: 1px solid rgba(59, 60, 106, 0.18);
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   font-family: 'Lato', sans-serif;
@@ -110,7 +110,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink);
-  box-shadow: 0 2px 8px rgba(56, 56, 104, 0.06);
+  box-shadow: 0 2px 8px rgba(59, 60, 106, 0.06);
 }
 
 .hero h1 {
@@ -173,7 +173,7 @@
 .hero-card-dots {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(56, 56, 104, 0.16) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(59, 60, 106, 0.16) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -243,7 +243,7 @@
   padding: 0.7rem 1rem;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 20px rgba(56, 56, 104, 0.25);
+  box-shadow: 0 8px 20px rgba(59, 60, 106, 0.25);
   font-family: 'Lato', sans-serif;
 }
 
@@ -450,7 +450,7 @@
 
 /* ─── Studio ─── */
 .studio-section {
-  background: #383868;
+  background: #3b3c6a;
   padding: 5rem 0;
 }
 
@@ -477,7 +477,7 @@
   margin-bottom: 1rem;
 }
 
-.studio-text .section-label { color: #90c0c8; }
+.studio-text .section-label { color: #90c4cf; }
 .studio-text .section-divider { background: #cfe4e9; }
 
 .studio-mosaic {
@@ -496,7 +496,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #383868;
+  color: #3b3c6a;
 }
 
 .mosaic-tile:nth-child(even) { transform: translateY(10px); }

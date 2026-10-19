@@ -26,7 +26,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2.8rem;
   font-weight: 500;
-  color: #383868;
+  color: #3b3c6a;
   margin-bottom: 0.5rem;
 }
 
@@ -61,14 +61,14 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
-  color: #383868;
+  color: #3b3c6a;
   outline: none;
   background: #ffffff;
   transition: border-color 0.3s ease;
 }
 
 .search-input:focus {
-  border-color: #383868;
+  border-color: #3b3c6a;
 }
 
 .search-input::placeholder {
@@ -78,9 +78,9 @@
 
 .search-btn {
   padding: 0.7rem 1.5rem;
-  background: #383868;
+  background: #3b3c6a;
   color: #cfe4e9;
-  border: 1px solid #383868;
+  border: 1px solid #3b3c6a;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -112,14 +112,14 @@
 }
 
 .cat-filter:hover {
-  border-color: #383868;
-  color: #383868;
+  border-color: #3b3c6a;
+  color: #3b3c6a;
 }
 
 .cat-filter.active {
-  background: #383868;
+  background: #3b3c6a;
   color: #cfe4e9;
-  border-color: #383868;
+  border-color: #3b3c6a;
 }
 
 /* ─── Content ─── */
@@ -166,14 +166,14 @@
 }
 
 .page-btn:hover {
-  border-color: #383868;
-  color: #383868;
+  border-color: #3b3c6a;
+  color: #3b3c6a;
 }
 
 .page-btn.active {
-  background: #383868;
+  background: #3b3c6a;
   color: #cfe4e9;
-  border-color: #383868;
+  border-color: #3b3c6a;
 }
 
 /* ─── Responsive ─── */

@@ -44,7 +44,7 @@ const ComingSoon = () => {
     <div className="coming-soon">
       <div className="coming-soon__container">
         <div className="coming-soon__logo">
-          <img src="/logo.png" alt="Helping Hands Craft" />
+          <img src="/logo.svg" alt="Helping Hands Craft" />
         </div>
 
         <p className="coming-soon__tagline">Curated Craft Supplies</p>
