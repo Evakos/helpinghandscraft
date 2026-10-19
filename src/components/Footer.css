@@ -1,6 +1,6 @@
 .footer {
-  background: #474343;
-  color: #b5ada0;
+  background: #383868;
+  color: #c9dde3;
   padding: 4rem 0 0;
   margin-top: auto;
 }
@@ -18,7 +18,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.6rem;
   font-weight: 600;
-  color: #dbd5c9;
+  color: #cfe4e9;
   margin-bottom: 0.75rem;
 }
 
@@ -34,13 +34,13 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #dbd5c9;
+  color: #cfe4e9;
   margin-bottom: 1.25rem;
 }
 
 .footer-section a {
   display: block;
-  color: #b5ada0;
+  color: #c9dde3;
   text-decoration: none;
   font-size: 0.9rem;
   margin-bottom: 0.6rem;
@@ -48,16 +48,16 @@
 }
 
 .footer-section a:hover {
-  color: #dbd5c9;
+  color: #cfe4e9;
 }
 
 .footer-bottom {
   text-align: center;
   margin-top: 3rem;
   padding: 1.5rem 2rem;
-  border-top: 1px solid rgba(219, 213, 201, 0.1);
+  border-top: 1px solid rgba(207, 228, 233, 0.1);
   font-size: 0.8rem;
-  color: #8a8275;
+  color: #90c0c8;
   letter-spacing: 0.05em;
 }
 

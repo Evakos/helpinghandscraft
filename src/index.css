@@ -1,6 +1,6 @@
 /* ─── Design System ───
    Studio Boutique Aesthetic
-   Colors: #474343 (charcoal) / #dbd5c9 (warm stone)
+   Colors: #383868 (charcoal) / #cfe4e9 (warm stone)
    Fonts: Cormorant Garamond (headings) / Lato (body)
 */
 
@@ -21,8 +21,8 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #faf8f5;
-  color: #474343;
+  background-color: #f8fbfc;
+  color: #383868;
   line-height: 1.7;
 }
 
@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: #474343;
+  color: #383868;
 }
 
 img {
@@ -49,8 +49,8 @@ button {
 }
 
 ::selection {
-  background: #dbd5c9;
-  color: #474343;
+  background: #cfe4e9;
+  color: #383868;
 }
 
 /* Scrollbar styling */
@@ -58,12 +58,12 @@ button {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #faf8f5;
+  background: #f8fbfc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #dbd5c9;
+  background: #cfe4e9;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c5bdb0;
+  background: #b9d6dd;
 }

@@ -1,60 +1,60 @@
 .navbar {
-  background: #ece7de;
-  color: #474343;
+  background: #ffffff;
+  color: #383868;
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(71, 67, 67, 0.12);
+  border-bottom: 1px solid rgba(56, 56, 104, 0.12);
   transition: box-shadow 0.3s ease;
 }
 
 .navbar--scrolled {
-  box-shadow: 0 6px 24px rgba(71, 67, 67, 0.1);
+  box-shadow: 0 6px 24px rgba(56, 56, 104, 0.1);
 }
 
 .navbar-top {
-  background: #474343;
+  background: #383868;
   text-align: center;
   padding: 0.4rem 1rem;
   font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #dbd5c9;
+  color: #cfe4e9;
 }
 
-/* Logo on the left, links and the bag pushed to the right. */
+/* Three zones: links on the left, the logo centred, the bag on the right. The logo only works centred. */
 .navbar-container {
   width: 100%;
   padding: 0 2.5rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 2.5rem;
-  height: 92px;
+  height: 112px;
   transition: height 0.3s ease;
 }
 
 .navbar--scrolled .navbar-container {
-  height: 68px;
+  height: 76px;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #474343;
+  color: #383868;
   flex-shrink: 0;
 }
 
 .navbar-logo {
-  height: 62px;
+  height: 92px;
   width: auto;
   display: block;
   transition: height 0.3s ease;
 }
 
 .navbar--scrolled .navbar-logo {
-  height: 44px;
+  height: 60px;
 }
 
 .navbar-links {
@@ -63,12 +63,16 @@
   align-items: center;
 }
 
-.navbar-links {
-  margin-left: auto;
+.navbar-links--left {
+  justify-content: flex-start;
+}
+
+.navbar-links--right {
+  justify-content: flex-end;
 }
 
 .nav-link {
-  color: #7a7265;
+  color: #5b5d8c;
   text-decoration: none;
   font-size: 0.82rem;
   font-weight: 400;
@@ -86,13 +90,13 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: #474343;
+  background: #383868;
   transition: width 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link--active {
-  color: #474343;
+  color: #383868;
 }
 
 .nav-link:hover::after,
@@ -105,7 +109,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: #474343;
+  color: #383868;
   text-decoration: none;
   font-size: 0.82rem;
   letter-spacing: 0.16em;
@@ -114,15 +118,15 @@
 }
 
 .cart-link:hover {
-  color: #7a7265;
+  color: #5b5d8c;
 }
 
 .cart-badge {
   position: absolute;
   top: -2px;
   left: 11px;
-  background: #474343;
-  color: #ece7de;
+  background: #383868;
+  color: #ffffff;
   border-radius: 999px;
   min-width: 17px;
   height: 17px;
@@ -140,10 +144,11 @@
   display: none;
   background: none;
   border: 0;
-  color: #474343;
+  color: #383868;
   cursor: pointer;
   padding: 0.5rem;
   margin-left: -0.5rem;
+  justify-self: start;
 }
 
 .navbar-drawer {
@@ -153,19 +158,19 @@
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 1rem;
-    height: 64px;
+    height: 76px;
   }
 
   .navbar--scrolled .navbar-container {
-    height: 56px;
+    height: 62px;
   }
 
   .navbar-logo {
-    height: 40px;
+    height: 60px;
   }
 
   .navbar--scrolled .navbar-logo {
-    height: 34px;
+    height: 48px;
   }
 
   .navbar-toggle {
@@ -173,25 +178,17 @@
   }
 
   /* On mobile the links live in the drawer; only the bag stays in the bar. */
-  .navbar-container {
-    gap: 0.75rem;
-  }
-
-  .navbar-links,
+  .navbar-links--left,
   .cart-link-label {
     display: none;
-  }
-
-  .cart-link {
-    margin-left: auto;
   }
 
   .navbar-drawer {
     display: flex;
     flex-direction: column;
     gap: 0;
-    background: #ece7de;
-    border-top: 1px solid rgba(71, 67, 67, 0.12);
+    background: #ffffff;
+    border-top: 1px solid rgba(56, 56, 104, 0.12);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease;
@@ -204,7 +201,7 @@
   .navbar-drawer .nav-link {
     padding: 1.1rem 1.5rem;
     font-size: 0.9rem;
-    border-bottom: 1px solid rgba(71, 67, 67, 0.08);
+    border-bottom: 1px solid rgba(56, 56, 104, 0.08);
   }
 
   .navbar-drawer .nav-link::after {

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import heroLogo from '../assets/hero-logo.png';
 import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles, Truck, Gem, ArrowRight } from 'lucide-react';
 import { getProducts, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
@@ -58,7 +57,7 @@ const Hero = ({ children }) => (
       <div className="hero-visual" aria-hidden="true">
         <div className="hero-card">
           <div className="hero-card-dots" />
-          <img src={heroLogo} alt="" className="hero-card-logo" />
+          <span className="float-tile float-tile--pink hero-card-heart"><Heart size={46} strokeWidth={1.6} /></span>
           {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
             <span
               key={i}

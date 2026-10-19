@@ -6,10 +6,10 @@
 
 /* ─── Header ─── */
 .shop-header {
-  background: #dbd5c9;
+  background: #cfe4e9;
   padding: 4rem 2rem 3rem;
   text-align: center;
-  border-bottom: 1px solid #d0c9bb;
+  border-bottom: 1px solid #b9d6dd;
 }
 
 .shop-header .section-label {
@@ -18,7 +18,7 @@
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #7a7265;
+  color: #5b5d8c;
   margin-bottom: 0.75rem;
 }
 
@@ -26,12 +26,12 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2.8rem;
   font-weight: 500;
-  color: #474343;
+  color: #383868;
   margin-bottom: 0.5rem;
 }
 
 .shop-header p {
-  color: #7a7265;
+  color: #5b5d8c;
   font-size: 0.95rem;
 }
 
@@ -56,31 +56,31 @@
 .search-input {
   flex: 1;
   padding: 0.7rem 1rem;
-  border: 1px solid #e8e3db;
+  border: 1px solid #dbe8ec;
   border-right: none;
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
-  color: #474343;
+  color: #383868;
   outline: none;
   background: #ffffff;
   transition: border-color 0.3s ease;
 }
 
 .search-input:focus {
-  border-color: #474343;
+  border-color: #383868;
 }
 
 .search-input::placeholder {
-  color: #b5ada0;
+  color: #8c90b4;
   font-style: italic;
 }
 
 .search-btn {
   padding: 0.7rem 1.5rem;
-  background: #474343;
-  color: #dbd5c9;
-  border: 1px solid #474343;
+  background: #383868;
+  color: #cfe4e9;
+  border: 1px solid #383868;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -90,7 +90,7 @@
 }
 
 .search-btn:hover {
-  background: #3a3737;
+  background: #2f2f5a;
 }
 
 .category-filters {
@@ -101,9 +101,9 @@
 
 .cat-filter {
   padding: 0.5rem 1.2rem;
-  border: 1px solid #e8e3db;
+  border: 1px solid #dbe8ec;
   background: transparent;
-  color: #8a8275;
+  color: #6f729c;
   cursor: pointer;
   font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
@@ -112,14 +112,14 @@
 }
 
 .cat-filter:hover {
-  border-color: #474343;
-  color: #474343;
+  border-color: #383868;
+  color: #383868;
 }
 
 .cat-filter.active {
-  background: #474343;
-  color: #dbd5c9;
-  border-color: #474343;
+  background: #383868;
+  color: #cfe4e9;
+  border-color: #383868;
 }
 
 /* ─── Content ─── */
@@ -130,10 +130,10 @@
 }
 
 .error-message {
-  background: #f5f2ed;
-  border: 1px solid #dbd5c9;
+  background: #eef5f7;
+  border: 1px solid #cfe4e9;
   padding: 1rem 1.5rem;
-  color: #7a7265;
+  color: #5b5d8c;
   font-size: 0.9rem;
   margin-bottom: 2rem;
 }
@@ -141,7 +141,7 @@
 .no-products {
   text-align: center;
   padding: 4rem 1rem;
-  color: #8a8275;
+  color: #6f729c;
   font-style: italic;
 }
 
@@ -155,9 +155,9 @@
 
 .page-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid #e8e3db;
+  border: 1px solid #dbe8ec;
   background: transparent;
-  color: #8a8275;
+  color: #6f729c;
   cursor: pointer;
   font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
@@ -166,14 +166,14 @@
 }
 
 .page-btn:hover {
-  border-color: #474343;
-  color: #474343;
+  border-color: #383868;
+  color: #383868;
 }
 
 .page-btn.active {
-  background: #474343;
-  color: #dbd5c9;
-  border-color: #474343;
+  background: #383868;
+  color: #cfe4e9;
+  border-color: #383868;
 }
 
 /* ─── Responsive ─── */
