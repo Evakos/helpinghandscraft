@@ -12,7 +12,7 @@ Written for: an AI assistant (Claude Code) picking this project up in a fresh ch
 - Auto mode classifier denials are final: do not work around them. State what you were trying to do and let Chris decide.
 - Use they/them for people whose pronouns are unknown.
 - Git commits end with `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`. Deploy with `git push` then `vercel --prod --yes` from the repo folder. Chris asks you to deploy and then check it himself; do not re-fetch pages with curl as proof.
-- Chris writes tersely with typos. When a request is ambiguous, pick the sensible reading, say which you picked, and keep it easy to change. One genuinely ambiguous request ("do it across so its two rows") turned out to belong to another chat.
+- Chris writes tersely with typos. When a request is ambiguous, pick the sensible reading, say which you picked, and keep it easy to change.
 
 ## 2. The business
 
@@ -68,7 +68,7 @@ Vite + React 19, `react-router-dom` 7, `axios`, `lucide-react`. Dev server `npm 
 **There is no backup of the shop's products, product photos or orders anywhere I could reach.** Do not repeat these searches:
 - The Mac, the Desktop, Downloads, Documents, Mail downloads, Google Drive (including the Local cloud backup folder, which belongs to the Evakos Local site), the whole G-DRIVE ArmorATD (large archive and SQL search over Dec 2025 to Mar 2026, plus a text search of an older 517,000 file recovery run).
 - All eight Local by Flywheel databases (searched for the domain string): none contain the shop. The Local site named Helping Hands Craft, and its copies on the Desktop and G-DRIVE, are just the 12 core WordPress tables of the headless dev build.
-- Files that looked relevant and were not: `Desktop Dec` SQL dumps (Hormozi), `ARCHIVE/ohlots` (an Icelandic theatre and a Steve Hatt `Orders-Export` CSV, payment method Pay360).
+- Other database dumps and order exports on the G-DRIVE belong to other, unrelated sites. None matched this shop's domain or customers.
 - The internal Mac drive is APFS on an SSD with TRIM: deleted files are not recoverable. The G-DRIVE is a 5TB spinning HFS+ disk where recovery is possible; Chris was running Disk Drill on it. If he reports a result, search the recovered files by content (the domain, `wp_posts`, `wc_orders`) not by filename.
 
 **What does exist**:
@@ -89,18 +89,17 @@ Vite + React 19, `react-router-dom` 7, `axios`, `lucide-react`. Dev server `npm 
 6. Mail: the domain cannot receive email. Add forwarding or a mailbox, then put an address on the Contact page.
 7. Fix the footer "Connect" column and use router links.
 8. Go live: remove the Coming Soon gate in `App.jsx` (or keep it until the shop is stocked), confirm the logo licence, delete stale Vercel env vars.
-9. Chris's housekeeping: delete `~/Desktop/keys.rtf`; Logos Ninja domain expires 24 Oct 2026 (separate project).
+9. Chris's housekeeping: delete `~/Desktop/keys.rtf` (it holds a live Stripe key).
 
 ## 7. Gotchas and current problems
 
-- **The Mac's data volume was 100% full at about 12:00 on 19 Oct 2026 (552MB free of 228GB).** That is what stopped the scrape. Biggest users: `~/Library` 66GB (Local 23GB, VS Code 8GB, Google 4GB, Herd 4GB), `~/Local Development` 37GB, and about 1.7GB of logs in the home folder from a Google Drive organising script (`~/gdrive_organize_*.log`, `~/gdrive_dryrun*.log`) that was moving files on the G-DRIVE into `ARCHIVE/Other` that morning. That script is not part of this project and was not running when I looked. Disk Drill was also running. Do not delete anything without asking Chris. Do not let recovered files land on the G-DRIVE being scanned.
+- **Disk space ran out on Chris's Mac (data volume 100% full, about 550MB free of 228GB, on 19 Oct 2026).** That is what crashed the Wayback scrape with "No space left on device". Free space first (ask Chris; do not delete anything yourself), then resume the scrape. If Chris is running a disk recovery scan on the G-DRIVE, keep recovered files off that drive.
 - Production reads and writes: the classifier allows plain `ssh` to the Evakos box but blocked a PHP script that read `wp-config.php` and queried the live database. Chris ran that script himself once and pasted the output. Expect the same for any database work; ask him to run it or add a rule.
 - Do not paste customer emails, names or addresses into tool calls or files.
 - Headless Chrome screenshots: Chrome is at `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`; use `--headless=new --window-size=W,H --virtual-time-budget=4000 --screenshot=file URL`. It will not go narrower than about 500px, virtual time does not advance animations, and hash scrolling does not work. To see a part of the page below the fold, add a temporary route and revert it.
 - The sun rotation and tile glow are verified only by simulation and single frames, not by watching them move live.
 - Archive.org rate limits hard (429). Keep requests slow and sequential.
-- Stripe and Vercel connectors in Claude may need authorising in the Claude app; the Vercel CLI and Resend connector are what I used.
-- Related Evakos dashboard context lives in `~/Local Development/evakos` and in Claude's memory file `project_helping_hands_craft.md`.
+- The shop's entry on the Evakos dashboard is in `~/Local Development/evakos/src/lib/sites-for-sale.ts`; keep it accurate as the project moves.
 
 ## 8. Quick commands
 
