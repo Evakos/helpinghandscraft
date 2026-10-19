@@ -416,10 +416,19 @@
   border: 2px solid var(--ink);
   border-radius: 14px;
   box-shadow: 5px 5px 0 var(--ink);
-  padding: 2rem 1.5rem;
-  max-width: 520px;
-  margin: 0 auto 3rem;
-  text-align: center;
+  padding: 2rem 2rem;
+  width: 100%;
+  margin: 0 0 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.empty-shop .why-icon {
+  margin-bottom: 0;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
 }
 
 .empty-shop h3 {
@@ -509,6 +518,7 @@
 }
 
 @media (max-width: 768px) {
+  .empty-shop { flex-direction: column; text-align: center; padding: 1.5rem 1.25rem; }
   .hero { padding: 3.5rem 0 4rem; }
   .hero-inner, .why-grid { padding: 0 1.25rem; }
   .section { padding: 3rem 1rem 0.5rem; }

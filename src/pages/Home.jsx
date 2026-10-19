@@ -165,9 +165,11 @@ const Home = () => {
           </div>
           {!loading && featuredProducts.length === 0 && (
             <div className="empty-shop">
-              <span className="why-icon why-icon--butter"><Sparkles size={20} strokeWidth={1.75} /></span>
-              <h3>New arrivals are on their way</h3>
-              <p>We're restocking the shelves. Leave your email below and we'll let you know the moment we're back.</p>
+              <span className="why-icon why-icon--butter"><Sparkles size={22} strokeWidth={1.75} /></span>
+              <div>
+                <h3>New arrivals are on their way</h3>
+                <p>We're restocking the shelves. Leave your email below and we'll let you know the moment we're back.</p>
+              </div>
             </div>
           )}
           <div className="products-grid">
