@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -7,18 +8,35 @@ import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import ComingSoon from './pages/ComingSoon';
+import { About, Delivery, Contact, Account } from './pages/Info';
 import './App.css';
+
+// Scroll to a #section when a link points at one (for example the Newsletter link in the nav).
+function ScrollToHash() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return undefined;
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 80);
+    return () => clearTimeout(t);
+  }, [pathname, hash]);
+  return null;
+}
 
 function SiteLayout() {
   return (
     <div className="app">
       <Navbar />
+      <ScrollToHash />
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/delivery" element={<Delivery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </main>
       <Footer />

@@ -1,0 +1,74 @@
+/* Small content pages: About, Delivery, Contact, Account. Uses the same tokens as the home page. */
+.info {
+  --ink: #3b3c6a;
+  --muted: #5b5d8c;
+  --accent: #d0468a;
+  --blush: #fbe0ec;
+  --sky: #d6ebf0;
+  --butter: #fdf0c2;
+  --lilac: #e3e2f4;
+  min-height: 60vh;
+  background: #f8fbfc;
+}
+
+.info-hero {
+  background-color: #e4f0f3;
+  background-image: radial-gradient(rgba(59, 60, 106, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
+  text-align: center;
+  padding: 4rem 1.5rem 4.5rem;
+}
+
+.info-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.info-icon--blush { background: var(--blush); }
+.info-icon--sky { background: var(--sky); }
+.info-icon--butter { background: var(--butter); }
+.info-icon--lilac { background: var(--lilac); }
+
+.info-label {
+  margin-top: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.info-hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 0.4rem;
+}
+
+.info-body {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.info-body p {
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 1.1rem;
+}
+
+.info-body .btn {
+  margin-top: 1rem;
+}

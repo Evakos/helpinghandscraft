@@ -35,7 +35,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="newsletter-section">
+    <section className="newsletter-section" id="newsletter">
       <div className="newsletter-container">
         <div className="newsletter-content">
           <p className="newsletter-label">Stay in Touch</p>

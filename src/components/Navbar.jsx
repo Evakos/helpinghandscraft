@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingBag, User, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { WC_DOMAIN } from '../api/woocommerce';
 import logo from '../assets/logo.svg';
@@ -49,13 +49,19 @@ const Navbar = () => {
     fetchMenu();
   }, []);
 
-  // Default menu items if API fails
+  // Default menu: three links either side of the logo. Used when the shop's own menu is not available.
   const defaultItems = [
-    { title: 'Home', slug: '', url: `${window.location.origin}/` },
-    { title: 'Shop', slug: 'shop', url: `${window.location.origin}/shop` },
+    { title: 'Home', to: '/' },
+    { title: 'Shop', to: '/shop' },
+    { title: 'About us', to: '/about' },
+    { title: 'Delivery', to: '/delivery' },
+    { title: 'Contact', to: '/contact' },
+    { title: 'Newsletter', to: { pathname: '/', hash: '#newsletter' } },
   ];
 
   const items = menuItems.length > 0 ? menuItems : defaultItems;
+  const leftItems = items.slice(0, 3);
+  const rightItems = items.slice(3, 6);
 
   const getPath = (item) => {
     try {
@@ -66,14 +72,17 @@ const Navbar = () => {
     }
   };
 
+  const getTo = (item) => item.to || getPath(item);
+
   const isActive = (item) => {
-    const path = getPath(item);
+    if (item.to && item.to.hash) return false;
+    const path = item.to || getPath(item);
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
 
   const renderLink = (item, i) => (
-    <Link key={i} to={getPath(item)} className={`nav-link ${isActive(item) ? 'nav-link--active' : ''}`}>
+    <Link key={i} to={getTo(item)} className={`nav-link ${isActive(item) ? 'nav-link--active' : ''}`}>
       {item.title}
     </Link>
   );
@@ -94,23 +103,29 @@ const Navbar = () => {
           {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
 
-        <div className="navbar-links navbar-links--left">{items.map(renderLink)}</div>
+        <div className="navbar-links navbar-links--left">{leftItems.map(renderLink)}</div>
 
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Helping Hands Craft" className="navbar-logo" />
         </Link>
 
         <div className="navbar-links navbar-links--right">
-          <Link to="/cart" className="cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
-            <ShoppingBag size={21} strokeWidth={1.5} />
-            <span className="cart-link-label">Bag</span>
-            {count > 0 && <span className="cart-badge">{count}</span>}
-          </Link>
+          {rightItems.map(renderLink)}
+          <span className="navbar-icons">
+            <Link to="/account" className="icon-link" aria-label="Account">
+              <User size={20} strokeWidth={1.5} />
+            </Link>
+            <Link to="/cart" className="icon-link cart-link" aria-label={`Bag${count > 0 ? `, ${count} items` : ''}`}>
+              <ShoppingBag size={20} strokeWidth={1.5} />
+              {count > 0 && <span className="cart-badge">{count}</span>}
+            </Link>
+          </span>
         </div>
       </div>
 
       <div className={`navbar-drawer ${open ? 'navbar-drawer--open' : ''}`} aria-hidden={!open} onClick={() => setOpen(false)}>
-        {items.map(renderLink)}
+        {items.slice(0, 6).map(renderLink)}
+        <Link to="/account" className="nav-link">Account</Link>
         <Link to="/cart" className="nav-link">Bag{count > 0 ? ` (${count})` : ''}</Link>
       </div>
     </nav>
