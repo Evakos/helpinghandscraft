@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import heartHands from '../assets/heart-hands.png';
 import { Scissors, Paintbrush, Ruler, Pencil, Palette, Flower2, Heart, Sparkles, Truck, Gem, ArrowRight } from 'lucide-react';
 import { getProducts, getCategories } from '../api/woocommerce';
 import ProductCard from '../components/ProductCard';
@@ -120,7 +121,7 @@ const Hero = ({ children }) => {
           </g>
           <circle r="52" className="sun-disc" />
         </svg>
-        <span className="float-tile float-tile--pink hero-sun-heart"><Heart size={44} strokeWidth={1.6} /></span>
+        <span className="hero-sun-mark"><img src={heartHands} alt="" /></span>
         {FLOATERS.map(({ Icon, tint, x, y, size, rot, dur, delay }, i) => (
           <span
             key={i}

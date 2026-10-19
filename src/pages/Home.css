@@ -187,15 +187,25 @@
   stroke-width: 2;
 }
 
-/* The big pink heart in the middle of the disc. */
-.hero-sun-heart {
-  left: 50%;
-  top: 50%;
-  width: 96px;
-  height: 96px;
-  margin: -48px 0 0 -48px;
-  --rot: -4deg;
-  --dur: 7s;
+/* The hands and heart from the logo set, in the middle of the disc, bobbing gently. */
+.hero-sun-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hero-sun-mark img {
+  width: 36%;
+  height: auto;
+  animation: hhc-bob 7s ease-in-out infinite;
+}
+
+@keyframes hhc-bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
 }
 
 .float-tile {
@@ -249,6 +259,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .float-tile { animation: none; transform: rotate(var(--rot, 0deg)); }
+  .hero-sun-mark img { animation: none; }
 }
 
 /* ─── Sections ─── */

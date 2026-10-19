@@ -42,7 +42,7 @@ const Newsletter = () => {
           <div className="newsletter-divider" />
           <h2 className="newsletter-title">Join Our Newsletter</h2>
           <p className="newsletter-description">
-            Be the first to know about new arrivals, exclusive offers, and craft inspiration delivered straight to your inbox.
+            Be the first to know about new arrivals and offers.
           </p>
           
           <form className="newsletter-form" onSubmit={handleSubmit}>

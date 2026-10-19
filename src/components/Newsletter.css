@@ -1,77 +1,77 @@
-/* ─── Newsletter Section ─── */
+/* ─── Newsletter: a slim band, text on the left and the sign-up form in one row on the right ─── */
 
 .newsletter-section {
-  background: #eef5f7;
-  padding: 5rem 2rem;
+  background: #e4f0f3;
+  padding: 2.25rem 2rem;
 }
 
 .newsletter-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .newsletter-content {
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  grid-template-areas:
+    'title form'
+    'desc  form'
+    'msg   msg';
+  column-gap: 3rem;
+  align-items: center;
 }
 
-.newsletter-label {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #8c90b4;
-  margin-bottom: 0.75rem;
-}
-
+.newsletter-label,
 .newsletter-divider {
-  width: 40px;
-  height: 1px;
-  background: #cfe4e9;
-  margin: 0 auto 1rem;
+  display: none;
 }
 
 .newsletter-title {
+  grid-area: title;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.5rem;
-  font-weight: 500;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #3b3c6a;
-  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  margin: 0;
 }
 
 .newsletter-description {
-  color: #6f729c;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+  grid-area: desc;
+  color: #5b5d8c;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0.3rem 0 0;
 }
 
 .newsletter-form {
+  grid-area: form;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
+  gap: 0.6rem;
+  align-items: stretch;
 }
 
 .newsletter-inputs {
   display: flex;
-  gap: 0.75rem;
-  width: 100%;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .newsletter-input {
   flex: 1;
-  padding: 0.85rem 1.2rem;
-  border: 1px solid #cfe4e9;
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid #3b3c6a;
+  border-radius: 10px;
   background: #ffffff;
   font-family: 'Lato', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #3b3c6a;
   outline: none;
-  transition: border-color 0.3s ease;
 }
 
 .newsletter-input::placeholder {
@@ -79,31 +79,31 @@
 }
 
 .newsletter-input:focus {
-  border-color: #3b3c6a;
+  box-shadow: 0 0 0 3px rgba(208, 70, 138, 0.25);
 }
 
 .newsletter-input--name {
-  max-width: 200px;
+  max-width: 170px;
 }
 
 .newsletter-btn {
-  width: 100%;
-  padding: 0.9rem 2.5rem;
-  background: #3b3c6a;
-  color: #cfe4e9;
-  border: 1px solid #3b3c6a;
+  width: auto;
+  padding: 0.7rem 1.4rem;
+  background: #d0468a;
+  color: #ffffff;
+  border: 2px solid #d0468a;
+  border-radius: 10px;
   font-family: 'Lato', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  white-space: nowrap;
+  transition: background 0.2s ease;
 }
 
 .newsletter-btn:hover:not(:disabled) {
-  background: #2f2f5a;
-  border-color: #2f2f5a;
+  background: #b93a78;
+  border-color: #b93a78;
 }
 
 .newsletter-btn:disabled {
@@ -112,34 +112,50 @@
 }
 
 .newsletter-message {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  grid-area: msg;
+  margin-top: 0.8rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .newsletter-message--success {
-  color: #4a7c59;
+  color: #2f7a52;
 }
 
 .newsletter-message--error {
-  color: #c0392b;
+  color: #b3261e;
 }
 
 /* ─── Responsive ─── */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .newsletter-section {
-    padding: 3rem 1.5rem;
+    padding: 2rem 0;
   }
-  
-  .newsletter-title {
-    font-size: 2rem;
+
+  .newsletter-container {
+    padding: 0 1.25rem;
   }
-  
+
+  .newsletter-content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'title'
+      'desc'
+      'form'
+      'msg';
+    row-gap: 0;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
   .newsletter-inputs {
     flex-direction: column;
   }
-  
+
   .newsletter-input--name {
-    max-width: 100%;
+    max-width: none;
   }
 }
