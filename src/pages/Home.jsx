@@ -99,7 +99,7 @@ const Hero = ({ children }) => {
       <div className="hero-copy">
         <span className="hero-pill"><Sparkles size={14} strokeWidth={2} /> Curated craft supplies</span>
         <h1>Craft supplies for every maker.</h1>
-        <p className="hero-lede">Handcrafted with love — unique creations and quality supplies for every maker, every project, every occasion.</p>
+        <p className="hero-lede">Handcrafted with love: unique creations and quality supplies for every maker, every project, every occasion.</p>
         <div className="hero-actions">
           <Link to="/shop" className="btn btn--solid">Browse the shop <ArrowRight size={16} strokeWidth={2} /></Link>
           <a href="#categories" className="btn btn--outline">Shop by category</a>

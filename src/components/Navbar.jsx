@@ -88,7 +88,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar-top">
-        Handcrafted with love — Free UK delivery on orders over £30
+        Handcrafted with love. Free UK delivery on orders over £30
       </div>
       <div className="navbar-container">
         <button
