@@ -32,7 +32,7 @@ const Shop = () => {
         setProducts(products);
         setTotalPages(totalPages || 1);
       } catch (err) {
-        setError('Failed to load products. Check your API connection.');
+        setError("We couldn't load the shop just now. Please refresh the page, or try again in a few minutes.");
         console.error(err);
       } finally {
         setLoading(false);
@@ -121,7 +121,12 @@ const Shop = () => {
           <div className="loading">Loading products...</div>
         ) : products.length === 0 ? (
           <div className="no-products">
-            <p>No products found.</p>
+            <h3>{searchQuery || currentCategory ? 'No products found' : 'New arrivals are on their way'}</h3>
+            <p>
+              {searchQuery || currentCategory
+                ? 'Try a different search or category.'
+                : "We're restocking the shelves. Leave your email on the home page and we'll let you know the moment we're back."}
+            </p>
           </div>
         ) : (
           <div className="products-grid">

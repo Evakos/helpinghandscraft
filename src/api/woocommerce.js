@@ -92,6 +92,19 @@ export const getProduct = async (id) => {
   }
 };
 
+// Product pages use the product's slug (/product/name-of-product/), the same address format the old shop used, so existing Google listings keep working.
+// A plain number still works too.
+export const getProductBySlug = async (slugOrId) => {
+  if (/^\d+$/.test(slugOrId)) return getProduct(slugOrId);
+  try {
+    const { data } = await storeApi.get('/products', { params: { slug: slugOrId } });
+    return data.length ? mapProduct(data[0]) : null;
+  } catch (error) {
+    console.error(`Error fetching product ${slugOrId}:`, error.response?.data || error.message);
+    throw error;
+  }
+};
+
 export const getCategories = async (params = {}) => {
   try {
     const { data } = await storeApi.get('/products/categories', { params });

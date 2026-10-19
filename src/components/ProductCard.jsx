@@ -10,11 +10,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card">
-      <Link to={`/product/${product.id}`} className="product-card-image">
+      <Link to={`/product/${product.slug || product.id}`} className="product-card-image">
         <img src={image} alt={product.name} loading="lazy" />
       </Link>
       <div className="product-card-body">
-        <Link to={`/product/${product.id}`} className="product-card-title">
+        <Link to={`/product/${product.slug || product.id}`} className="product-card-title">
           {product.name}
         </Link>
         <p className="product-card-price">£{price}</p>

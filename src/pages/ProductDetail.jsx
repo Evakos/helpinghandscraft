@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getProduct } from '../api/woocommerce';
+import { getProductBySlug } from '../api/woocommerce';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const ProductDetail = () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await getProduct(id);
+        const data = await getProductBySlug(slug);
         setProduct(data);
       } catch (err) {
         setError('Failed to load product.');
@@ -29,7 +29,7 @@ const ProductDetail = () => {
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [slug]);
 
   const handleAddToCart = () => {
     if (product) {
